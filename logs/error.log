@@ -1,0 +1,19 @@
+{"level":"error","message":"Admin authentication error: secret or public key must be provided","service":"movie-booking-api","timestamp":"2025-04-26 15:37:35"}
+{"level":"error","message":"Admin authentication error: secret or public key must be provided","service":"movie-booking-api","timestamp":"2025-04-26 15:38:04"}
+{"level":"error","message":"Admin authentication error: secret or public key must be provided","service":"movie-booking-api","timestamp":"2025-04-26 15:38:10"}
+{"level":"error","message":"Admin authentication error: secret or public key must be provided","service":"movie-booking-api","timestamp":"2025-04-26 15:38:22"}
+{"level":"error","message":"Admin authentication error: secret or public key must be provided","service":"movie-booking-api","timestamp":"2025-04-26 15:38:24"}
+{"level":"error","message":"Admin authentication error: secret or public key must be provided","service":"movie-booking-api","timestamp":"2025-04-26 15:38:54"}
+{"level":"error","message":"Admin authentication error: jwt malformed","service":"movie-booking-api","timestamp":"2025-04-26 15:38:59"}
+{"level":"error","message":"Admin authentication error: secret or public key must be provided","service":"movie-booking-api","timestamp":"2025-04-26 15:39:17"}
+{"level":"error","message":"Admin authentication error: secret or public key must be provided","service":"movie-booking-api","timestamp":"2025-04-26 15:40:38"}
+{"level":"error","message":"Admin authentication error: jwt malformed","service":"movie-booking-api","timestamp":"2025-04-26 15:41:10"}
+{"level":"error","message":"Admin authentication error: invalid signature","service":"movie-booking-api","timestamp":"2025-04-26 15:42:26"}
+{"level":"error","message":"Admin authentication error: invalid signature","service":"movie-booking-api","timestamp":"2025-04-26 15:42:53"}
+{"level":"error","message":"Admin authentication error: invalid signature","service":"movie-booking-api","timestamp":"2025-04-26 15:42:55"}
+{"level":"error","message":"Admin authentication error: invalid signature","service":"movie-booking-api","timestamp":"2025-04-26 15:43:05"}
+{"level":"error","message":"Database connection error: connect ECONNREFUSED ::1:27017, connect ECONNREFUSED 127.0.0.1:27017","service":"movie-booking-api","timestamp":"2025-04-26 15:46:59"}
+{"level":"error","message":"Database connection error: Invalid message size: 1347703880, max allowed: 67108864","service":"movie-booking-api","timestamp":"2025-04-26 15:47:59"}
+{"level":"error","message":"400 - Unexpected end of JSON input - /signup - POST - ::1","service":"movie-booking-api","timestamp":"2025-04-27 16:29:33"}
+{"level":"error","message":"400 - Unexpected end of JSON input - /signup - POST - ::1","service":"movie-booking-api","timestamp":"2025-04-27 16:29:36"}
+{"level":"error","message":"400 - Unexpected end of JSON input - /admin/ - POST - ::1","service":"movie-booking-api","timestamp":"2025-04-27 16:35:40"}
