@@ -1,8 +1,8 @@
+import bcrypt from 'bcryptjs';
+import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
 import Admin from "../models/Admin.js";
 import Movie from "../models/Movie.js";
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
 import logger from '../utils/logger.js';
 dotenv.config();
 
