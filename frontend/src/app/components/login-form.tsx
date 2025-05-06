@@ -30,17 +30,17 @@ export function LoginForm({
                 Forgot your password?
                 </a>
             </div>
-            <Input id="password" type="password" required />
+            <Input id="password" type="password" placeholder="Enter your password" required />
             </div>
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full bg-gray-700 hover:bg-gray-400 text-white hover:text-jet-black">
             Login
             </Button>
-            <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
-            <span className="relative z-10 bg-background px-2 text-muted-foreground">
+            <hr className="text-black"></hr>
+            <span className="relative bg-background px-2 text-sm">
                 Or continue with
             </span>
-            </div>
-            <Button variant="outline" className="w-full">
+
+            <Button variant="outline" className="w-full bg-gray-700 hover:bg-gray-400 text-white hover:text-jet-black">
             <img
                 src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
                 alt="Google Logo"
