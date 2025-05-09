@@ -36,7 +36,7 @@ export function LoginForm({
             Login
             </Button>
             <hr className="text-black"></hr>
-            <span className="relative bg-background px-2 text-sm">
+            <span className="flex justify-center px-2 text-sm">
                 Or continue with
             </span>
 

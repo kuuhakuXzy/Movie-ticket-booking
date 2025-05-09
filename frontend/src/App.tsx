@@ -1,11 +1,15 @@
-import { AppSidebar } from "@/app/components/app-sidebar";
+// Components
+import AppSidebar from "@/app/components/app-sidebar";
 import { PosterCarousel } from "@/app/components/poster-carousel";
-import SearchBar from "@/app/components/search-bar";
-import '@splidejs/splide/dist/css/splide.min.css';
-import { Film, UserRound } from "lucide-react";
-import { Link } from "react-router-dom";
+
+
+// Icons
+
+// ShadcnUI Components
+import { SidebarProvider } from "./components/ui/sidebar";
+
+import { Header } from "@/app/components/header";
 import './App.css';
-import { SidebarProvider, SidebarTrigger } from "./components/ui/sidebar";
 
 function App() {
   return (
@@ -14,35 +18,11 @@ function App() {
         <AppSidebar />
 
         <div className="flex-1 flex flex-col">
-
-          <header className="flex items-center justify-between shadow-md">
-              <div className="flex items-center gap-4">
-                <SidebarTrigger className="bg-white text-black  m-5 px-4 py-2 rounded" />
-
-                <a href="#" className="flex items-center gap-2 font-medium">
-                  <div className="flex items-center justify-center rounded-md bg-primary text-white">
-                    <Film className="h-10 w-10 text-red-600" />
-                  </div>
-                  <div className="text-2xl font-alfa text-red-500">CineBook</div>
-                </a>
-              </div>
-              {/*Search Bar */}
-              <div className="w-full px-16"><SearchBar/></div>
-              {/*Login Button */}
-              <div className="flex items-center gap-6 mr-5">
-                <Link
-                  to="/login"
-                  className="flex items-center rounded-lg py-2 px-4 bg-gray-800 hover:bg-gray-600 transition-colors duration-200 text-white font-bold text-sm"
-                >
-                  <UserRound className="mr-2" />
-                  Login
-                </Link>
-              </div>
-              
-          </header>
+            {/*Header */}
+            <Header/>
+          
             {/*Poster Carousel */}
-            <div><PosterCarousel/></div>
-
+            <PosterCarousel/>
         </div>
       </SidebarProvider>
     </div>
