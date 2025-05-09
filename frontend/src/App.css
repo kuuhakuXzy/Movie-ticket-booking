@@ -44,14 +44,8 @@
   color: #888;
 }
 
-/* globals.css */
 .splide__arrow {
-  top: 50% !important;
-  transform: translateY(-50%) !important;
-  background: rgba(0, 0, 0, 0.5);
-  width: 2.5rem;
-  height: 2.5rem;
-  color: white;
+  color: white !important;
   z-index: 10;
 }
 
