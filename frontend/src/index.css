@@ -6,11 +6,17 @@
 @theme {
   --font-sans: "font", sans-serif;
   --color-jet-black: #0E0F0F;
+  --color-light-grey: #1A1A2E;
   --font-alfa: "Alfa Slab One", "serif";
   --font-roboto: "Roboto", "sans-serif";
+  --font-poppins: "Poppins", "sans-serif";
 }
 
 @layer components {
+  :global(.splide__arrow) {
+    @apply top-1/2 -translate-y-1/2 text-white;
+  }
+  
   :global(.splide__arrow--prev) {
     @apply right-12 left-auto;
   }

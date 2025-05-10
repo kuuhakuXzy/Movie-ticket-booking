@@ -7,7 +7,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
-    }
+      "@/*": ["./src/*"],
+      "@/app/*": ["./src/*"],
+    },
+    "typeRoots": ["./src/types", "./node_modules/@types"]
   }
 }
