@@ -1,4 +1,5 @@
 
+import BookingPage from '@/app/pages/BookingPage.tsx'
 import LoginPage from '@/app/pages/LoginPage.tsx'
 import SignupPage from '@/app/pages/SignupPage.tsx'
 import { StrictMode } from 'react'
@@ -7,6 +8,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import App from './App.tsx'
 import './index.css'
 
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
@@ -14,6 +16,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/" element={<App />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/booking" element={<BookingPage />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,

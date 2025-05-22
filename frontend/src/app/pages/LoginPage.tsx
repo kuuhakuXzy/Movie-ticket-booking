@@ -5,29 +5,29 @@ import { LoginForm } from "@/app/components/login-form"
 export default function LoginPage() {
     return (
         <div className="bg-white">
-        <div className="grid min-h-svh lg:grid-cols-2">
-        <div className="relative hidden bg-muted lg:block">
-            <img
-            src="src/assets/login-background.jpg"
-            alt="Image"
-            className="h-full"
-            />
-        </div>
-        <div className="flex flex-col gap-4 p-6 md:p-10">
-            <div className="flex justify-center gap-2 md:justify-start">
-            <a href="/" className="flex items-center gap-2 font-medium">
-                <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground font-bold">
-                    <Film className="size-4" />
+            <div className="grid min-h-screen lg:grid-cols-2">
+                <div className="relative">
+                    <img
+                        src="src/assets/login-background.jpg"
+                        alt="Image"
+                        className="h-full"
+                    />
                 </div>
-                <div className="font-bold">CineBook</div>
-            </a>
+            <div className="flex flex-col gap-4 p-10">
+                <div className="flex justify-start gap-2">
+                    <a href="/" className="flex items-center gap-2 font-medium">
+                        <div className="flex items-center justify-center rounded-md font-bold">
+                            <Film className="size-6" />
+                        </div>
+                        <span className="font-bold">CineBook</span>
+                    </a>
             </div>
-            <div className="flex flex-1 items-center justify-center">
-                <div className="w-full max-w-xs">
-                    <LoginForm />
+                <div className="flex items-center justify-center">
+                    <div className="w-full max-w-xs">
+                        <LoginForm />
+                    </div>
                 </div>
             </div>
-        </div>
         </div>
         </div>
     )

@@ -7,6 +7,8 @@ import {
 import { Separator } from "@radix-ui/react-separator";
 import { HeartIcon, TicketIcon } from "lucide-react";
 
+import { useNavigate } from "react-router-dom";
+
 const posterItem = [
     {
         id: 1,
@@ -32,6 +34,11 @@ const posterItem = [
 ]
 
 export default function TabsPanel() {
+    const navigate = useNavigate();
+
+    const handleBooking = () => {
+        navigate("/booking");
+    }
     return (
         <Tabs defaultValue ="nowshowing" className="w-full">
             <TabsList className="flex justify-start gap-4">
@@ -67,7 +74,7 @@ export default function TabsPanel() {
                                 <h6 className="font-poppins text-md pt-2 text-gray-200">Genres: {item.genres}</h6>
                                     <p className="font-poppins text-sm pt-2 text-white-grey">{item.description}</p>
                                     <div className="flex items-center gap-2 pt-4">
-                                        <button className="flex items-center bg-primary text-white px-4 py-2 rounded-md border-1 font-poppins hover:bg-gray-500 hover:text-jet-black shadow-md cursor-pointer">
+                                        <button className="flex items-center bg-primary text-white px-4 py-2 rounded-md border-1 font-poppins hover:bg-gray-500 hover:text-jet-black shadow-md cursor-pointer" onClick={handleBooking}>
                                             <TicketIcon className="w-4 h-4 mr-2" />
                                             Book Now
                                         </button>
