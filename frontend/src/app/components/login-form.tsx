@@ -21,15 +21,15 @@ export function LoginForm({
             <Input id="email" type="email" placeholder="example@example.com" required />
             </div>
             <div className="grid gap-2">
-            <div className="flex items-center">
-                <Label htmlFor="password">Password</Label>
-                <a
-                href="#"
-                className="ml-auto text-sm underline-offset-4 hover:underline"
-                >
-                Forgot your password?
-                </a>
-            </div>
+                <div className="flex items-center">
+                    <Label htmlFor="password">Password</Label>
+                    <a
+                    href="#"
+                    className="ml-auto text-sm underline-offset-4 hover:underline"
+                    >
+                    Forgot your password?
+                    </a>
+                </div>
             <Input id="password" type="password" placeholder="Enter your password" required />
             </div>
             <Button type="submit" className="w-full bg-gray-700 hover:bg-gray-400 text-white hover:text-jet-black">

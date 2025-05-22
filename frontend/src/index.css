@@ -7,6 +7,7 @@
   --font-sans: "font", sans-serif;
   --color-jet-black: #0E0F0F;
   --color-light-grey: #1A1A2E;
+  --color-white-grey: #D4D4D4;
   --font-alfa: "Alfa Slab One", "serif";
   --font-roboto: "Roboto", "sans-serif";
   --font-poppins: "Poppins", "sans-serif";
@@ -27,11 +28,11 @@
 }
 
 :root {
-  --sidebar: hsl(0 0% 98%);
+  --sidebar: hsl(0, 0%, 0%);
   --sidebar-foreground: hsl(240 5.3% 26.1%);
   --sidebar-primary: hsl(240 5.9% 10%);
-  --sidebar-primary-foreground: hsl(0 0% 98%);
-  --sidebar-accent: hsl(240 4.8% 95.9%);
+  --sidebar-primary-foreground: hsl(0, 2%, 71%);
+  --sidebar-accent: hsl(240, 11%, 33%);
   --sidebar-accent-foreground: hsl(240 5.9% 10%);
   --sidebar-border: hsl(220 13% 91%);
   --sidebar-ring: hsl(217.2 91.2% 59.8%);
@@ -41,7 +42,7 @@
   --sidebar: hsl(240 5.9% 10%);
   --sidebar-foreground: hsl(240 4.8% 95.9%);
   --sidebar-primary: hsl(224.3 76.3% 48%);
-  --sidebar-primary-foreground: hsl(0 0% 100%);
+  --sidebar-primary-foreground: hsl(0, 4%, 60%);
   --sidebar-accent: hsl(240 3.7% 15.9%);
   --sidebar-accent-foreground: hsl(240 4.8% 95.9%);
   --sidebar-border: hsl(240 3.7% 15.9%);

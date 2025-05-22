@@ -1,15 +1,15 @@
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react"
+import { ClapperboardIcon, Home, Newspaper, Popcorn, Settings } from "lucide-react"
 
 import {
   Sidebar,
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
-  SidebarMenuItem,
+  SidebarMenuItem
 } from "@/components/ui/sidebar"
+import { Separator } from "@radix-ui/react-separator"
 
 // Menu items.
 const items = [
@@ -19,41 +19,75 @@ const items = [
     icon: Home,
   },
   {
-    title: "Inbox",
+    title: "Movie List",
     url: "#",
-    icon: Inbox,
+    icon: ClapperboardIcon,
   },
   {
-    title: "Calendar",
+    title: "Food & Drinks",
     url: "#",
-    icon: Calendar,
+    icon: Popcorn,
   },
   {
-    title: "Search",
+    title: "News & Updates",
     url: "#",
-    icon: Search,
+    icon: Newspaper,
   },
   {
-    title: "Settings",
+    title: "Booking Management",
     url: "#",
     icon: Settings,
   },
 ]
 
-export function AppSidebar() {
+// Submenu items.
+const subItems = [
+  {
+    title: "About CineBook",
+    url: "#",
+  },
+  {
+    title: "FAQ",
+    url: "#",
+  },
+  {
+    title: "Contact Us",
+    url: "#",
+  },
+]
+
+export default function AppSidebar() {
   return (
     <Sidebar>
-      <SidebarContent>
+      <SidebarContent className="bg-jet-black text-gray-300">
         <SidebarGroup>
-          <SidebarGroupLabel>CineBook</SidebarGroupLabel>
+          {/* <SidebarGroupLabel className="text-lg mr-5 py-5">CineBook</SidebarGroupLabel> */}
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
+                    <a
+                      href={item.url}
+                      className="flex items-center gap-3 !text-md py-6 font-roboto"
+                    >
+                      <item.icon className="!w-7 !h-7" />
+                      <span className="!text-md font-poppins">{item.title}</span>
+                      
+                    </a>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+              <Separator className="border-1 my-2 w-[210px] mx-auto"></Separator>
+              {subItems.map((subItems) => (
+                <SidebarMenuItem key={subItems.title}>
+                  <SidebarMenuButton asChild>
+                    <a
+                      href={subItems.url}
+                      className="flex items-center gap-3 !text-md py-5"
+                    >
+                      <span className="!text-md font-serif">{subItems.title}</span>
+                      
                     </a>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
