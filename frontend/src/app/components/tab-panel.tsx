@@ -30,7 +30,6 @@ const posterItem = [
         genres: "Science Fiction, Drama, Adventure",
         description: "Interstellar follows a team of explorers who travel through a wormhole in space in an attempt to ensure humanity's survival. The film explores themes of love, sacrifice, and the nature of time and space."
     },
-
 ]
 
 export default function TabsPanel() {
