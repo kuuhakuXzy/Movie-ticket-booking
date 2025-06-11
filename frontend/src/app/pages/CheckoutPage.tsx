@@ -54,6 +54,7 @@ export default function CheckoutPage() {
         }
     }, [search]);
 
+    console.log(price)
     const total = seats.length * price;
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -151,8 +152,7 @@ export default function CheckoutPage() {
                 <h3 className="text-xl font-semibold mb-2">Payment Method</h3>
                 <select className="w-full border p-2 rounded bg-gray-800 text-white">
                 <option value="card">Credit / Debit Card</option>
-                <option value="upi">UPI</option>
-                <option value="netbanking">Net Banking</option>
+                <option value="card">E-Wallet (e.g Momo, ZaloPay)</option>
                 </select>
             </div>
 

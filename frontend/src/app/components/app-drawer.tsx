@@ -64,7 +64,7 @@ export default function AppDrawer() {
 
     const handleProceed = () => {
         const seatsParam = encodeURIComponent(JSON.stringify(Array.from(selectedSeats)));
-        const priceParam = totalPrice;
+        const priceParam = seatPrice;
 
         navigate(`/checkout?seats=${seatsParam}&price=${priceParam}`);
     };

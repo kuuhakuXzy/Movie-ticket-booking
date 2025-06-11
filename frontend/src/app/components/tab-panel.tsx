@@ -4,39 +4,16 @@ import {
     TabsList,
     TabsTrigger,
 } from "@/components/ui/tabs";
+import { movieData } from "@/data/movieData";
 import { Separator } from "@radix-ui/react-separator";
 import { HeartIcon, TicketIcon } from "lucide-react";
-
 import { useNavigate } from "react-router-dom";
-
-const posterItem = [
-    {
-        id: 1,
-        title: "Dune",
-        image: "src/assets/poster/Dune.jpg",
-        rating: "13+",
-        duration: "155 minutes",
-        releaseDate: "10 February 2021",
-        genres: "Science Fiction, Epic, Adventure",
-        description: "Dune follows the emotional, epic journey of Paul Atreides, a gifted young man destined for greatness. He travels to the universe’s most dangerous planet to protect his family and people. As ruthless forces battle for control over a powerful resource that unlocks human potential, only those who conquer their fear will survive."
-    },
-    {
-        id: 2,
-        title: "Interstellar",
-        image: "src/assets/poster/Interstellar.jpg",
-        rating: "13+",
-        duration: "169 minutes",
-        releaseDate: "28 February 2025",
-        genres: "Science Fiction, Drama, Adventure",
-        description: "Interstellar follows a team of explorers who travel through a wormhole in space in an attempt to ensure humanity's survival. The film explores themes of love, sacrifice, and the nature of time and space."
-    },
-]
 
 export default function TabsPanel() {
     const navigate = useNavigate();
 
-    const handleBooking = () => {
-        navigate("/booking");
+    const handleBooking = (id: number) => {
+        navigate(`/booking/${id}`);
     }
     return (
         <Tabs defaultValue ="nowshowing" className="w-full">
@@ -49,7 +26,7 @@ export default function TabsPanel() {
                 </TabsTrigger>
             </TabsList>
             <TabsContent value="nowshowing" className="ml-8">
-                {posterItem.map((item, index) => (
+                {movieData.map((item, index) => (
                     <>
                         <div key={index} className="flex items-center gap-4 mb-10">
                                 <img
@@ -70,10 +47,13 @@ export default function TabsPanel() {
                                         <Separator orientation="vertical" className="h-4 w-px bg-gray-500" />
                                         <p className="text-sm text-gray-500">{item.releaseDate}</p>
                                     </div>
-                                <h6 className="font-poppins text-md pt-2 text-gray-200">Genres: {item.genres}</h6>
+                                    <h6 className="font-poppins text-md pt-2 text-white">Genres: {item.genres}</h6>
                                     <p className="font-poppins text-sm pt-2 text-white-grey">{item.description}</p>
                                     <div className="flex items-center gap-2 pt-4">
-                                        <button className="flex items-center bg-primary text-white px-4 py-2 rounded-md border-1 font-poppins hover:bg-gray-500 hover:text-jet-black shadow-md cursor-pointer" onClick={handleBooking}>
+                                        <button
+                                            className="flex items-center bg-primary text-white px-4 py-2 rounded-md border-1 font-poppins hover:bg-gray-500 hover:text-jet-black shadow-md cursor-pointer"
+                                            onClick={() => handleBooking(item.id)}
+                                        >
                                             <TicketIcon className="w-4 h-4 mr-2" />
                                             Book Now
                                         </button>

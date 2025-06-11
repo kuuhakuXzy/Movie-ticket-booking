@@ -9,8 +9,6 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import App from './App.tsx'
 import './index.css'
 
-
-
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
@@ -18,7 +16,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/" element={<App />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
-        <Route path="/booking" element={<BookingPage />} />
+        <Route path="/booking/:id" element={<BookingPage />} />
         <Route path="/checkout" element={<CheckoutPage />} />
       </Routes>
     </BrowserRouter>
