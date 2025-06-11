@@ -20,17 +20,17 @@ const items = [
   },
   {
     title: "Movie List",
-    url: "#",
+    url: "/movielist",
     icon: ClapperboardIcon,
   },
   {
     title: "Food & Drinks",
-    url: "#",
+    url: "/fooddrinks",
     icon: Popcorn,
   },
   {
     title: "News & Updates",
-    url: "#",
+    url: "/newsupdates",
     icon: Newspaper,
   },
   {
