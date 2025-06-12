@@ -7,6 +7,7 @@ import TabsPanel from "@/app/components/tab-panel";
 // ShadcnUI Components
 import { SidebarProvider } from "@/components/ui/sidebar";
 
+import { Footer } from "@/app/components/footer";
 import { Header } from "@/app/components/header";
 export default function HomePage() {
     return (
@@ -21,6 +22,8 @@ export default function HomePage() {
                 <PosterCarousel/>
 
                 <TabsPanel/>
+
+                <Footer/>
             </div>
         </SidebarProvider>
         </div>

@@ -1,6 +1,7 @@
 import AppDrawer from "@/app/components/app-drawer";
 import AppSidebar from "@/app/components/app-sidebar";
-import Header from "@/app/components/header";
+import { Footer } from "@/app/components/footer";
+import { Header } from "@/app/components/header";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { movieData } from "@/data/movieData";
 import { useParams } from "react-router-dom";
@@ -48,6 +49,7 @@ export default function BookingPage() {
                 <div className="text-2xl font-poppins mb-3">Times & Tickets</div>
                 <AppDrawer />
             </div>
+            <Footer/>
             </div>
         </SidebarProvider>
         </div>

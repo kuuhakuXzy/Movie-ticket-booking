@@ -1,4 +1,5 @@
 import { ClapperboardIcon, Home, Newspaper, Popcorn, Settings } from "lucide-react"
+import { Link, useLocation } from "react-router-dom"
 
 import {
   Sidebar,
@@ -43,7 +44,15 @@ const items = [
 // Submenu items.
 const subItems = [
   {
-    title: "About CineBook",
+    title: "Offers & Promotions",
+    url: "#",
+  },
+  {
+    title: "Experiences",
+    url: "#",
+  },
+  {
+    title: "Gift Shop",
     url: "#",
   },
   {
@@ -57,6 +66,7 @@ const subItems = [
 ]
 
 export default function AppSidebar() {
+  const location = useLocation()
   return (
     <Sidebar>
       <SidebarContent className="bg-jet-black text-gray-300">
@@ -67,14 +77,16 @@ export default function AppSidebar() {
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a
-                      href={item.url}
-                      className="flex items-center gap-3 !text-md py-6 font-roboto"
+                    <Link
+                      to={item.url}
+                      className={`flex items-center gap-3 !text-md py-6 font-roboto ${
+                        location.pathname === item.url ? "text-white" : "text-gray-300"
+                      }`}
                     >
                       <item.icon className="!w-7 !h-7" />
                       <span className="!text-md font-poppins">{item.title}</span>
                       
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
@@ -82,13 +94,15 @@ export default function AppSidebar() {
               {subItems.map((subItems) => (
                 <SidebarMenuItem key={subItems.title}>
                   <SidebarMenuButton asChild>
-                    <a
-                      href={subItems.url}
-                      className="flex items-center gap-3 !text-md py-5"
+                    <Link
+                      to={subItems.url}
+                      className={`flex items-center gap-3 !text-md py-5 ${
+                        location.pathname === subItems.url ? "text-white" : "text-gray-300"
+                      }`}
                     >
-                      <span className="!text-md font-serif">{subItems.title}</span>
+                      <span className="!text-md font-poppins m-2">{subItems.title}</span>
                       
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
