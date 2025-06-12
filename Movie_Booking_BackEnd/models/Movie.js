@@ -37,6 +37,14 @@ const movieSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  nowShowing: {
+    type: Boolean,
+    default: false
+  },
+  showtimes: [{
+    type: mongoose.Types.ObjectId,
+    ref: "Showtime"
+  }],
   bookings: [{
     type: mongoose.Types.ObjectId,
     ref: "Booking"
@@ -46,6 +54,8 @@ const movieSchema = new mongoose.Schema({
     ref: "Admin",
     required: true
   }
+}, {
+  timestamps: true
 });
 
 const NowShowing = mongoose.model("NowShowing", movieSchema, "now_showing_movies");
@@ -53,4 +63,5 @@ const ComingSoon = mongoose.model("ComingSoon", movieSchema, "coming_soon_movies
 
 export { NowShowing, ComingSoon };
 
-export default mongoose.model('Movie', movieSchema);
+const Movie = mongoose.model('Movie', movieSchema);
+export default Movie;

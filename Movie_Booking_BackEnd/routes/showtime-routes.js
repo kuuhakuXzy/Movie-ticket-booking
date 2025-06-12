@@ -1,14 +1,28 @@
 import express from 'express';
-import { addShowtime, getShowtimes, deleteShowtime } from '../controllers/showtime-controller.js';
-import { verifyAdmin } from '../middleware/auth.js';
+import { verifyToken, verifyAdmin } from '../middleware/auth.js';
+import {
+  getAllShowtimes,
+  getShowtimeById,
+  createShowtime,
+  updateShowtime,
+  deleteShowtime,
+  getShowtimesByMovie,
+  getAvailableSeats,
+  updateSeatStatus
+} from '../controllers/showtime-controller.js';
 
-const showtimeRouter = express.Router();
+const router = express.Router();
 
 // Public routes
-showtimeRouter.get("/", getShowtimes);
+router.get('/', getAllShowtimes);
+router.get('/movie/:movieId', getShowtimesByMovie);
+router.get('/:id', getShowtimeById);
+router.get('/:id/seats', getAvailableSeats);
 
 // Admin routes
-showtimeRouter.post("/", verifyAdmin, addShowtime);
-showtimeRouter.delete("/:id", verifyAdmin, deleteShowtime);
+router.post('/', verifyToken, verifyAdmin, createShowtime);
+router.put('/:id', verifyToken, verifyAdmin, updateShowtime);
+router.delete('/:id', verifyToken, verifyAdmin, deleteShowtime);
+router.put('/:id/seats/:seatNumber', verifyToken, updateSeatStatus);
 
-export default showtimeRouter; 
+export default router; 

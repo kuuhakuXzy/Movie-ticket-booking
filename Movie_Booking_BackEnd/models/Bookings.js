@@ -12,9 +12,14 @@ const bookingSchema = new mongoose.Schema({
     required: true
   },
   seats: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Seat",
-    required: true
+    seatNumber: {
+      type: String,
+      required: true
+    },
+    price: {
+      type: Number,
+      required: true
+    }
   }],
   foodDrinks: [{
     item: {
@@ -24,8 +29,26 @@ const bookingSchema = new mongoose.Schema({
     quantity: {
       type: Number,
       default: 1
+    },
+    price: {
+      type: Number,
+      required: true
     }
   }],
+  customerInfo: {
+    name: {
+      type: String,
+      required: true
+    },
+    email: {
+      type: String,
+      required: true
+    },
+    phone: {
+      type: String,
+      required: true
+    }
+  },
   totalAmount: {
     type: Number,
     required: true
@@ -43,7 +66,19 @@ const bookingSchema = new mongoose.Schema({
     type: String,
     enum: ['pending', 'completed', 'failed'],
     default: 'pending'
+  },
+  paymentMethod: {
+    type: String,
+    enum: ['credit_card', 'debit_card', 'cash'],
+    required: true
+  },
+  bookingReference: {
+    type: String,
+    required: true,
+    unique: true
   }
+}, {
+  timestamps: true
 });
 
 export default mongoose.model("Booking", bookingSchema);

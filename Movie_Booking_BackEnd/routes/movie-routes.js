@@ -1,12 +1,28 @@
 import express from 'express';
-import {addMovie,getMovies,getMovieById,getNowShowingMovies,getComingSoonMovies} from '../controllers/movie-controller.js'
+import { verifyToken, verifyAdmin } from '../middleware/auth.js';
+import {
+  getAllMovies,
+  getMovieById,
+  createMovie,
+  updateMovie,
+  deleteMovie,
+  toggleNowShowing,
+  getNowShowingMovies,
+  getComingSoonMovies
+} from '../controllers/movie-controller.js';
 
-const movieRouter = express.Router();
+const router = express.Router();
 
-movieRouter.post("/",addMovie);
-movieRouter.get("/now-showing",getNowShowingMovies);
-movieRouter.get("/coming-soon",getComingSoonMovies);
-movieRouter.get("/",getMovies);
-movieRouter.get("/:id",getMovieById);
+// Public routes
+router.get('/', getAllMovies);
+router.get('/now-showing', getNowShowingMovies);
+router.get('/coming-soon', getComingSoonMovies);
+router.get('/:id', getMovieById);
 
-export default movieRouter;
+// Admin routes
+router.post('/', verifyToken, verifyAdmin, createMovie);
+router.put('/:id', verifyToken, verifyAdmin, updateMovie);
+router.delete('/:id', verifyToken, verifyAdmin, deleteMovie);
+router.put('/:id/toggle-showing', verifyToken, verifyAdmin, toggleNowShowing);
+
+export default router;

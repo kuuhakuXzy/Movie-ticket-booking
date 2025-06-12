@@ -30,10 +30,26 @@ const showtimeSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
+  seats: [{
+    seatNumber: {
+      type: String,
+      required: true
+    },
+    isBooked: {
+      type: Boolean,
+      default: false
+    },
+    booking: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Booking'
+    }
+  }],
   isActive: {
     type: Boolean,
     default: true
   }
+}, {
+  timestamps: true
 });
 
 export default mongoose.model('Showtime', showtimeSchema); 

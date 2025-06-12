@@ -1,15 +1,26 @@
 import express from 'express';
-import { addFoodDrink, getFoodDrinks, updateFoodDrink, deleteFoodDrink } from '../controllers/fooddrink-controller.js';
-import { verifyAdmin } from '../middleware/auth.js';
+import { verifyToken, verifyAdmin } from '../middleware/auth.js';
+import {
+  getAllFoodDrinks,
+  getFoodDrinkById,
+  createFoodDrink,
+  updateFoodDrink,
+  deleteFoodDrink,
+  getFoodDrinksByCategory,
+  toggleAvailability
+} from '../controllers/fooddrink-controller.js';
 
-const foodDrinkRouter = express.Router();
+const router = express.Router();
 
 // Public routes
-foodDrinkRouter.get("/", getFoodDrinks);
+router.get('/', getAllFoodDrinks);
+router.get('/category/:category', getFoodDrinksByCategory);
+router.get('/:id', getFoodDrinkById);
 
 // Admin routes
-foodDrinkRouter.post("/", verifyAdmin, addFoodDrink);
-foodDrinkRouter.put("/:id", verifyAdmin, updateFoodDrink);
-foodDrinkRouter.delete("/:id", verifyAdmin, deleteFoodDrink);
+router.post('/', verifyToken, verifyAdmin, createFoodDrink);
+router.put('/:id', verifyToken, verifyAdmin, updateFoodDrink);
+router.delete('/:id', verifyToken, verifyAdmin, deleteFoodDrink);
+router.put('/:id/toggle-availability', verifyToken, verifyAdmin, toggleAvailability);
 
-export default foodDrinkRouter; 
+export default router; 

@@ -1,6 +1,7 @@
 import express from "express";
-import { getAllUsers, addNewUser, updateUser, deleteUser, login, getBookingsOfUser, getUserById } from "../controllers/user-controller.js";
+import { addNewUser, updateUser, deleteUser, login, getBookingsOfUser, getUserById } from "../controllers/user-controller.js";
 import { validateUser, validate } from "../middleware/validators.js";
+import { authenticateToken } from "../middleware/auth.js";
 
 const userRouter = express.Router();
 
@@ -8,11 +9,10 @@ const userRouter = express.Router();
 userRouter.post('/signup', validateUser, validate, addNewUser);
 userRouter.post('/login', login);
 
-// Protected routes (you might want to add authentication middleware here)
-userRouter.get('/', getAllUsers);
-userRouter.get('/:id', getUserById);
-userRouter.put('/:id', validateUser, validate, updateUser);
-userRouter.delete("/del/:id", deleteUser);
-userRouter.get("/bookings/:id", getBookingsOfUser);
+// Protected routes - require authentication
+userRouter.get('/profile', authenticateToken, getUserById);
+userRouter.put('/profile', authenticateToken, validateUser, validate, updateUser);
+userRouter.delete("/profile", authenticateToken, deleteUser);
+userRouter.get("/bookings", authenticateToken, getBookingsOfUser);
 
 export default userRouter;
