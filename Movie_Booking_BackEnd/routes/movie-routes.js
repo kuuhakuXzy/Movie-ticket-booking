@@ -1,5 +1,5 @@
 import express from 'express';
-import { verifyToken, verifyAdmin } from '../middleware/auth.js';
+import { verifyUser, verifyAdmin } from '../middleware/auth.js';
 import {
   getAllMovies,
   getMovieById,
@@ -20,9 +20,9 @@ router.get('/coming-soon', getComingSoonMovies);
 router.get('/:id', getMovieById);
 
 // Admin routes
-router.post('/', verifyToken, verifyAdmin, createMovie);
-router.put('/:id', verifyToken, verifyAdmin, updateMovie);
-router.delete('/:id', verifyToken, verifyAdmin, deleteMovie);
-router.put('/:id/toggle-showing', verifyToken, verifyAdmin, toggleNowShowing);
+router.post('/', verifyUser, verifyAdmin, createMovie);
+router.put('/:id', verifyUser, verifyAdmin, updateMovie);
+router.delete('/:id', verifyUser, verifyAdmin, deleteMovie);
+router.put('/:id/toggle-showing', verifyUser, verifyAdmin, toggleNowShowing);
 
 export default router;

@@ -1,5 +1,5 @@
 import express from 'express';
-import { verifyToken, verifyAdmin } from '../middleware/auth.js';
+import { verifyUser, verifyAdmin } from '../middleware/auth.js';
 import {
   getAllShowtimes,
   getShowtimeById,
@@ -20,9 +20,9 @@ router.get('/:id', getShowtimeById);
 router.get('/:id/seats', getAvailableSeats);
 
 // Admin routes
-router.post('/', verifyToken, verifyAdmin, createShowtime);
-router.put('/:id', verifyToken, verifyAdmin, updateShowtime);
-router.delete('/:id', verifyToken, verifyAdmin, deleteShowtime);
-router.put('/:id/seats/:seatNumber', verifyToken, updateSeatStatus);
+router.post('/', verifyUser, verifyAdmin, createShowtime);
+router.put('/:id', verifyUser, verifyAdmin, updateShowtime);
+router.delete('/:id', verifyUser, verifyAdmin, deleteShowtime);
+router.put('/:id/seats/:seatNumber', verifyUser, updateSeatStatus);
 
 export default router; 

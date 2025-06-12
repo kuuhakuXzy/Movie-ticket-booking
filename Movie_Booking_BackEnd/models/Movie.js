@@ -18,11 +18,11 @@ const movieSchema = new mongoose.Schema({
     required: true
   },
   rating: {
-    type: String, // or Number if you want numeric ratings
+    type: String,
     required: true
   },
   duration: {
-    type: String, // or Number if you want duration in minutes
+    type: String,
     required: true
   },
   releaseDate: {
@@ -30,7 +30,7 @@ const movieSchema = new mongoose.Schema({
     required: true,
   },
   genres: {
-    type: [String], // Array of strings for multiple genres
+    type: [String],
     required: true,
   },
   description: {
@@ -58,10 +58,13 @@ const movieSchema = new mongoose.Schema({
   timestamps: true
 });
 
-const NowShowing = mongoose.model("NowShowing", movieSchema, "now_showing_movies");
-const ComingSoon = mongoose.model("ComingSoon", movieSchema, "coming_soon_movies");
-
-export { NowShowing, ComingSoon };
-
+// Create the base Movie model
 const Movie = mongoose.model('Movie', movieSchema);
-export default Movie;
+
+// Create NowShowing model that extends Movie schema
+const NowShowing = mongoose.model('NowShowing', movieSchema);
+
+// Create ComingSoon model that extends Movie schema
+const ComingSoon = mongoose.model('ComingSoon', movieSchema);
+
+export { Movie as default, NowShowing, ComingSoon };

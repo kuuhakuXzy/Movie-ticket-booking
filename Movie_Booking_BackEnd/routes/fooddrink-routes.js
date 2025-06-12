@@ -1,5 +1,5 @@
 import express from 'express';
-import { verifyToken, verifyAdmin } from '../middleware/auth.js';
+import { verifyUser, verifyAdmin } from '../middleware/auth.js';
 import {
   getAllFoodDrinks,
   getFoodDrinkById,
@@ -18,9 +18,9 @@ router.get('/category/:category', getFoodDrinksByCategory);
 router.get('/:id', getFoodDrinkById);
 
 // Admin routes
-router.post('/', verifyToken, verifyAdmin, createFoodDrink);
-router.put('/:id', verifyToken, verifyAdmin, updateFoodDrink);
-router.delete('/:id', verifyToken, verifyAdmin, deleteFoodDrink);
-router.put('/:id/toggle-availability', verifyToken, verifyAdmin, toggleAvailability);
+router.post('/', verifyUser, verifyAdmin, createFoodDrink);
+router.put('/:id', verifyUser, verifyAdmin, updateFoodDrink);
+router.delete('/:id', verifyUser, verifyAdmin, deleteFoodDrink);
+router.put('/:id/toggle-availability', verifyUser, verifyAdmin, toggleAvailability);
 
 export default router; 

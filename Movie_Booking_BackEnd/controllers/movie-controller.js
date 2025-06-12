@@ -6,76 +6,71 @@ import mongoose from "mongoose";
 import Admin from "../models/Admin.js";
 dotenv.config();
 
-
-export const addMovie = async(req,res,next)=>{
-
+export const createMovie = async(req,res,next)=>{
   const extractedToken = req.headers.authorization.split(' ')[1];
   if(!extractedToken && extractedToken.trim() === ""){
     return res.status(404).json({message:"Token Not Found"})
   }
-//console.log(extractedToken);
-let adminId;
-jwt.verify(extractedToken,process.env.SECRET_KEY, (err, decrypted) => {
-   if(err){
-    return res.status(400).json({message: `${err.message}`})
-   }else{
-    adminId  = decrypted.id;
-    return;
-   }
-});
 
-const {title, description, releaseDate, posterUrl, featured, actors } = req.body;
+  let adminId;
+  jwt.verify(extractedToken,process.env.SECRET_KEY, (err, decrypted) => {
+    if(err){
+      return res.status(400).json({message: `${err.message}`})
+    }else{
+      adminId = decrypted.id;
+      return;
+    }
+  });
 
-if(!title && title.trim() === "" && 
-!description && description.trim() ==="" &&
- !posterUrl && posterUrl.trim() === ""){
+  const {title, description, releaseDate, posterUrl, featured, actors } = req.body;
+
+  if(!title && title.trim() === "" && 
+  !description && description.trim() ==="" &&
+  !posterUrl && posterUrl.trim() === ""){
     return res.status(422).json({message:"Invalid Inputs"})
+  }
+
+  let movie;
+  try {
+    movie = new Movie({
+      title,
+      description,
+      releaseDate: new Date(`${releaseDate}`),
+      posterUrl,
+      featured,
+      actors,
+      admin: adminId
+    }) 
+    const session = await mongoose.startSession();
+    const adminUser = await Admin.findById(adminId);
+    session.startTransaction();
+    await movie.save({session})
+    adminUser.addedmovies.push(movie);
+    await adminUser.save({session});
+    await session.commitTransaction();
+  } catch (error) {
+    return res.status(500).json({message: "Error creating movie", error: error.message});
+  }
+
+  if(!movie){
+    return res.status(500).json({message:"Request Failed"});
+  }
+  return res.status(201).json({movie})
 }
-let movie;
-try {
-  movie =new Movie({title,
-    description,
-    releaseDate: new Date(`${releaseDate}`),
-    posterUrl,
-    featured,
-    actors,
-    admin: adminId
-  
-  }) 
-const session =await mongoose.startSession();
 
-const adminUser = await Admin.findById(adminId);
-session.startTransaction();
-await movie.save({session})
-adminUser.addedmovies.push(movie);
-await adminUser.save({session});
-await session.commitTransaction(); // means stop the transaction
-
-} catch (error) {
-  return console.log(error)
-}
- if(!movie){
-  return res.status(500).json({message:"Request Failed"});
- }
- return res.status(201).json({movie})
-
-}
-
-export const getMovies = async(req, res, next)=>{
-   let movies;
-   try {
+export const getAllMovies = async(req, res, next)=>{
+  let movies;
+  try {
     movies = await Movie.find();
-    
-   }catch (error) {
-     return console.log(error)
-   }
-   if(!movies){
+  } catch (error) {
+    return res.status(500).json({message: "Error fetching movies", error: error.message});
+  }
+  if(!movies){
     return res.status(500).json({message:"Request Failed"})
-   }
-
-    return res.status(200).json({movies})
-
+  }
+  return res.status(200).json({movies})
 }
+
 export const getMovieById = async(req, res, next)=>{
   const id = req.params.id;
   
@@ -94,6 +89,82 @@ export const getMovieById = async(req, res, next)=>{
 
   if (!movie) {
     return res.status(404).json({ message: "Movie not found" });
+  }
+
+  return res.status(200).json({ movie });
+}
+
+export const updateMovie = async(req, res, next) => {
+  const id = req.params.id;
+  const { title, description, releaseDate, posterUrl, featured, actors } = req.body;
+
+  let movie;
+  try {
+    movie = await Movie.findByIdAndUpdate(
+      id,
+      {
+        title,
+        description,
+        releaseDate: new Date(`${releaseDate}`),
+        posterUrl,
+        featured,
+        actors
+      },
+      { new: true }
+    );
+  } catch (error) {
+    return res.status(500).json({ message: "Error updating movie", error: error.message });
+  }
+
+  if (!movie) {
+    return res.status(404).json({ message: "Movie not found" });
+  }
+
+  return res.status(200).json({ movie });
+}
+
+export const deleteMovie = async(req, res, next) => {
+  const id = req.params.id;
+
+  let movie;
+  try {
+    movie = await Movie.findByIdAndDelete(id);
+  } catch (error) {
+    return res.status(500).json({ message: "Error deleting movie", error: error.message });
+  }
+
+  if (!movie) {
+    return res.status(404).json({ message: "Movie not found" });
+  }
+
+  return res.status(200).json({ message: "Movie deleted successfully" });
+}
+
+export const toggleNowShowing = async(req, res, next) => {
+  const id = req.params.id;
+  const { isNowShowing } = req.body;
+
+  let movie;
+  try {
+    movie = await Movie.findById(id);
+    if (!movie) {
+      return res.status(404).json({ message: "Movie not found" });
+    }
+
+    if (isNowShowing) {
+      const nowShowing = new NowShowing(movie.toObject());
+      await nowShowing.save();
+      await ComingSoon.findOneAndDelete({ _id: id });
+    } else {
+      const comingSoon = new ComingSoon(movie.toObject());
+      await comingSoon.save();
+      await NowShowing.findOneAndDelete({ _id: id });
+    }
+
+    movie.isNowShowing = isNowShowing;
+    await movie.save();
+  } catch (error) {
+    return res.status(500).json({ message: "Error toggling movie status", error: error.message });
   }
 
   return res.status(200).json({ movie });

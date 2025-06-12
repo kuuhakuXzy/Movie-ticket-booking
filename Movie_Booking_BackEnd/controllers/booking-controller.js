@@ -4,6 +4,7 @@ import Showtime from "../models/Showtime.js";
 import Seat from "../models/Seat.js";
 import FoodDrink from "../models/FoodDrink.js";
 import User from "../models/User.js";
+import Movie from "../models/Movie.js";
 
 export const createBooking = async (req, res) => {
   try {
@@ -242,3 +243,124 @@ export const deleteBooking = async (req, res, next)=>{
 
   return res.status(200).json({message:"Booking deleted successfully!"})
 }
+
+export const addFoodDrinksToBooking = async (req, res) => {
+  try {
+    const { bookingId } = req.params;
+    const { foodDrinks } = req.body;
+
+    const booking = await Booking.findById(bookingId);
+    if (!booking) {
+      return res.status(404).json({ message: "Booking not found" });
+    }
+
+    // Verify food and drinks exist
+    const foodDrinkItems = await FoodDrink.find({
+      _id: { $in: foodDrinks.map(item => item.item) }
+    });
+
+    if (foodDrinkItems.length !== foodDrinks.length) {
+      return res.status(400).json({ message: "Some food/drink items are not available" });
+    }
+
+    // Calculate additional amount
+    let additionalAmount = 0;
+    foodDrinks.forEach(order => {
+      const item = foodDrinkItems.find(fd => fd._id.toString() === order.item);
+      if (item) {
+        additionalAmount += item.price * order.quantity;
+      }
+    });
+
+    // Update booking
+    booking.foodDrinks = [...booking.foodDrinks, ...foodDrinks];
+    booking.totalAmount += additionalAmount;
+    await booking.save();
+
+    res.status(200).json({ booking });
+  } catch (error) {
+    res.status(500).json({ message: "Error adding food and drinks to booking", error: error.message });
+  }
+};
+
+export const removeFoodDrinksFromBooking = async (req, res) => {
+  try {
+    const { bookingId } = req.params;
+    const { foodDrinkIds } = req.body;
+
+    const booking = await Booking.findById(bookingId);
+    if (!booking) {
+      return res.status(404).json({ message: "Booking not found" });
+    }
+
+    // Calculate refund amount
+    let refundAmount = 0;
+    const foodDrinkItems = await FoodDrink.find({
+      _id: { $in: foodDrinkIds }
+    });
+
+    booking.foodDrinks = booking.foodDrinks.filter(item => {
+      const foodDrink = foodDrinkItems.find(fd => fd._id.toString() === item.item);
+      if (foodDrink && foodDrinkIds.includes(item.item)) {
+        refundAmount += foodDrink.price * item.quantity;
+        return false;
+      }
+      return true;
+    });
+
+    // Update booking
+    booking.totalAmount -= refundAmount;
+    await booking.save();
+
+    res.status(200).json({ booking });
+  } catch (error) {
+    res.status(500).json({ message: "Error removing food and drinks from booking", error: error.message });
+  }
+};
+
+export const updateBookingStatus = async (req, res) => {
+  try {
+    const { bookingId } = req.params;
+    const { status } = req.body;
+
+    const booking = await Booking.findById(bookingId);
+    if (!booking) {
+      return res.status(404).json({ message: "Booking not found" });
+    }
+
+    // Validate status
+    const validStatuses = ['pending', 'confirmed', 'cancelled', 'completed'];
+    if (!validStatuses.includes(status)) {
+      return res.status(400).json({ message: "Invalid status" });
+    }
+
+    // Update status
+    booking.status = status;
+    await booking.save();
+
+    res.status(200).json({ booking });
+  } catch (error) {
+    res.status(500).json({ message: "Error updating booking status", error: error.message });
+  }
+};
+
+export const getBookingByReference = async (req, res) => {
+  try {
+    const { reference } = req.params;
+    const booking = await Booking.findOne({ reference })
+      .populate('showtime')
+      .populate('seats')
+      .populate({
+        path: 'foodDrinks.item',
+        model: 'FoodDrink'
+      });
+
+    if (!booking) {
+      return res.status(404).json({ message: "Booking not found" });
+    }
+
+    res.status(200).json({ booking });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching booking", error: error.message });
+  }
+};
