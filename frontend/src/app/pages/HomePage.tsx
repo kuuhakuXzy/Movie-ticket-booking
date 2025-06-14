@@ -1,14 +1,14 @@
-// Components
-import AppSidebar from "@/app/components/app-sidebar";
-import PosterCarousel from "@/app/components/poster-carousel";
-import TabsPanel from "@/app/components/tab-panel";
+// elements
+import AppSidebar from "@/app/elements/app-sidebar";
+import PosterCarousel from "@/app/elements/poster-carousel";
+import TabsPanel from "@/app/elements/tab-panel";
 // Icons
 
-// ShadcnUI Components
+// ShadcnUI elements
 import { SidebarProvider } from "@/components/ui/sidebar";
 
-import { Footer } from "@/app/components/footer";
-import { Header } from "@/app/components/header";
+import { Footer } from "@/app/elements/footer";
+import { Header } from "@/app/elements/header";
 export default function HomePage() {
     return (
         <div className="bg-jet-black min-h-screen text-white">

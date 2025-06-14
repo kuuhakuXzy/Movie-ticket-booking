@@ -1,5 +1,5 @@
 import { SidebarProvider } from '@/components/ui/sidebar';
-import AppSidebar from '@/app/components/app-sidebar';
+import AppSidebar from '@/app/elements/app-sidebar';
 import { Film } from 'lucide-react';
 
 interface FoodItem {

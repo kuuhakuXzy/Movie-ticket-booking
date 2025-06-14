@@ -1,6 +1,6 @@
-import { movieData, Movie } from '@/data/movieData'; // Adjust path
-import { SidebarProvider } from '@/components/ui/sidebar'; // Adjust path if needed
-import AppSidebar from '@/app/components/app-sidebar'; // Adjust path to your sidebar
+import { movieData, Movie } from '@/data/movieData';
+import { SidebarProvider } from '@/components/ui/sidebar';
+import AppSidebar from '@/app/elements/app-sidebar';
 import { Film } from 'lucide-react';
 
 export default function MovieListPage() {

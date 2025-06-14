@@ -1,7 +1,7 @@
-import AppDrawer from "@/app/components/app-drawer";
-import AppSidebar from "@/app/components/app-sidebar";
-import { Footer } from "@/app/components/footer";
-import { Header } from "@/app/components/header";
+import AppDrawer from "@/app/elements/app-drawer";
+import AppSidebar from "@/app/elements/app-sidebar";
+import { Footer } from "@/app/elements/footer";
+import { Header } from "@/app/elements/header";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { movieData } from "@/data/movieData";
 import { useParams } from "react-router-dom";

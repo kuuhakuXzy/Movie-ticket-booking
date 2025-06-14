@@ -1,16 +1,7 @@
 import { ClapperboardIcon, Home, Newspaper, Popcorn, Settings } from "lucide-react"
 import { Link, useLocation } from "react-router-dom"
-
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem
-} from "@/components/ui/sidebar"
 import { Separator } from "@radix-ui/react-separator"
+import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar"
 
 // Menu items.
 const items = [

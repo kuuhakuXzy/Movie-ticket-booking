@@ -8,10 +8,7 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "user/src/app/*",
-        "user/src/*"
-      ]
+      "@/*": ["src/*"]
     },
 
     /* Bundler mode */
@@ -28,6 +25,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
-  },
-  "include": ["user/src"]
+  }
 }

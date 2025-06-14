@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator"; // Assuming you have this
+import { Separator } from "@/components/ui/separator";
 import { Film } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";

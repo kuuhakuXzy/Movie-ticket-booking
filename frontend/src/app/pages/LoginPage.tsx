@@ -1,6 +1,6 @@
 import { Film } from "lucide-react"
 
-import { LoginForm } from "@/app/components/login-form"
+import { LoginForm } from "@/app/elements/login-form"
 
 export default function LoginPage() {
     return (

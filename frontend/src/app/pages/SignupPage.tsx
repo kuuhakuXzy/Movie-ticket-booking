@@ -1,4 +1,4 @@
-import { SignUpForm } from "@/app/components/signup-form"
+import { SignUpForm } from "@/app/elements/signup-form"
 import { Film } from "lucide-react"
 
 

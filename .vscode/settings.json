@@ -4,5 +4,6 @@
         "roboto",
         "Shadcn",
         "splidejs"
-    ]
+    ],
+    "postman.settings.dotenv-detection-notification-visibility": false
 }
