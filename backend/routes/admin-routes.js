@@ -8,7 +8,7 @@ import {
   updateMovie,
   deleteMovie 
 } from '../controllers/admin-controller.js';
-import { adminAuth } from '../middleware/auth.js';
+import { verifyAdmin } from '../middleware/auth.js';
 import { validateMovie, validate } from '../middleware/validators.js';
 
 const adminRouter = express.Router();
@@ -18,7 +18,7 @@ adminRouter.post('/signup', addAdmin);
 adminRouter.post('/login', adminLogin);
 
 // Protected routes (require admin authentication)
-adminRouter.use(adminAuth);
+adminRouter.use(verifyAdmin);
 
 // Admin management routes
 adminRouter.get("/", getAdmins);

@@ -1,39 +1,70 @@
 import mongoose from "mongoose";
 
 const movieSchema = new mongoose.Schema({
-  title:{
-    type:String,
-    require:true
+  id: {
+    type: Number,
+    required: true
   },
-  description:{
-    type:String,
-    require:true
+  title: {
+    type: String,
+    required: true
   },
-  actors:[{
-    type:String,
-    required:true
-  }],
-  releaseDate:{
+  image: {
+    type: String,
+    required: true
+  },
+  wallpaper: {
+    type: String,
+    required: true
+  },
+  rating: {
+    type: String,
+    required: true
+  },
+  duration: {
+    type: String,
+    required: true
+  },
+  releaseDate: {
     type: Date,
-    require:true
+    required: true,
   },
-  posterUrl:{
-    type:String,
-    require:true
+  genres: {
+    type: [String],
+    required: true,
   },
-  featured:{
-    type: Boolean
+  description: {
+    type: String,
+    required: true,
   },
-  bookings:[{
+  nowShowing: {
+    type: Boolean,
+    default: false
+  },
+  showtimes: [{
     type: mongoose.Types.ObjectId,
-    ref:"Booking"
+    ref: "Showtime"
   }],
-  admin:{
-    type:mongoose.Types.ObjectId,
-    ref:"Admin",
-    require:true
+  bookings: [{
+    type: mongoose.Types.ObjectId,
+    ref: "Booking"
+  }],
+  admin: {
+    type: mongoose.Types.ObjectId,
+    ref: "Admin",
+    required: true
   }
+}, {
+  timestamps: true
+});
 
-})
+// Create the base Movie model
+const Movie = mongoose.model('Movie', movieSchema);
 
-export default mongoose.model('Movie',movieSchema);
+// Create NowShowing model that extends Movie schema
+const NowShowing = mongoose.model('NowShowing', movieSchema);
+
+// Create ComingSoon model that extends Movie schema
+const ComingSoon = mongoose.model('ComingSoon', movieSchema);
+
+export { Movie as default, NowShowing, ComingSoon };

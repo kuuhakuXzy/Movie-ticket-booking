@@ -4,6 +4,8 @@ import userRouter from './routes/user-routes.js';
 import adminRouter from './routes/admin-routes.js';
 import movieRouter from './routes/movie-routes.js';
 import bookingRouter from './routes/booking-routes.js';
+import showtimeRouter from './routes/showtime-routes.js';
+import foodDrinkRouter from './routes/fooddrink-routes.js';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import logger from './utils/logger.js';
@@ -22,6 +24,8 @@ app.use("/user", userRouter);
 app.use("/admin", adminRouter);
 app.use('/movie', movieRouter);
 app.use('/booking', bookingRouter);
+app.use('/showtime', showtimeRouter);
+app.use('/food-drink', foodDrinkRouter);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

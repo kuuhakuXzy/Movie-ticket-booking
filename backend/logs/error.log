@@ -14,6 +14,32 @@
 {"level":"error","message":"Admin authentication error: invalid signature","service":"movie-booking-api","timestamp":"2025-04-26 15:43:05"}
 {"level":"error","message":"Database connection error: connect ECONNREFUSED ::1:27017, connect ECONNREFUSED 127.0.0.1:27017","service":"movie-booking-api","timestamp":"2025-04-26 15:46:59"}
 {"level":"error","message":"Database connection error: Invalid message size: 1347703880, max allowed: 67108864","service":"movie-booking-api","timestamp":"2025-04-26 15:47:59"}
-{"level":"error","message":"400 - Unexpected end of JSON input - /signup - POST - ::1","service":"movie-booking-api","timestamp":"2025-04-27 16:29:33"}
-{"level":"error","message":"400 - Unexpected end of JSON input - /signup - POST - ::1","service":"movie-booking-api","timestamp":"2025-04-27 16:29:36"}
-{"level":"error","message":"400 - Unexpected end of JSON input - /admin/ - POST - ::1","service":"movie-booking-api","timestamp":"2025-04-27 16:35:40"}
+{"level":"error","message":"Admin authentication error: invalid signature","service":"movie-booking-api","timestamp":"2025-04-27 16:36:13"}
+{"level":"error","message":"Admin authentication error: jwt malformed","service":"movie-booking-api","timestamp":"2025-06-12 21:18:39"}
+{"level":"error","message":"Admin authentication error: jwt malformed","service":"movie-booking-api","timestamp":"2025-06-12 21:21:38"}
+{"level":"error","message":"Admin authentication error: jwt malformed","service":"movie-booking-api","timestamp":"2025-06-12 21:21:52"}
+{"level":"error","message":"Admin authentication error: invalid signature","service":"movie-booking-api","timestamp":"2025-06-12 21:21:57"}
+{"level":"error","message":"Admin lookup error: Operation `admins.findOne()` buffering timed out after 10000ms","service":"movie-booking-api","timestamp":"2025-06-12 21:29:15"}
+{"level":"error","message":"Admin authentication error: invalid token","service":"movie-booking-api","timestamp":"2025-06-12 21:32:29"}
+{"level":"error","message":"Admin authentication error: secret or public key must be provided","service":"movie-booking-api","timestamp":"2025-06-12 21:32:41"}
+{"level":"error","message":"Admin authentication error: secret or public key must be provided","service":"movie-booking-api","timestamp":"2025-06-12 21:32:47"}
+{"level":"error","message":"Admin authentication error: secret or public key must be provided","service":"movie-booking-api","timestamp":"2025-06-12 21:32:53"}
+{"level":"error","message":"Admin authentication error: secret or public key must be provided","service":"movie-booking-api","timestamp":"2025-06-12 21:33:41"}
+{"level":"error","message":"Admin authentication error: secret or public key must be provided","service":"movie-booking-api","timestamp":"2025-06-12 21:33:50"}
+{"level":"error","message":"Admin authentication error: secret or public key must be provided","service":"movie-booking-api","timestamp":"2025-06-12 21:34:16"}
+{"level":"error","message":"Admin authentication error: secret or public key must be provided","service":"movie-booking-api","timestamp":"2025-06-12 21:34:17"}
+{"level":"error","message":"Admin authentication error: secret or public key must be provided","service":"movie-booking-api","timestamp":"2025-06-12 21:34:18"}
+{"level":"error","message":"Admin authentication error: secret or public key must be provided","service":"movie-booking-api","timestamp":"2025-06-12 21:35:17"}
+{"level":"error","message":"Admin authentication error: secret or public key must be provided","service":"movie-booking-api","timestamp":"2025-06-12 21:35:38"}
+{"level":"error","message":"Admin authentication error: invalid token","service":"movie-booking-api","timestamp":"2025-06-12 21:35:55"}
+{"level":"error","message":"Admin authentication error: jwt malformed","service":"movie-booking-api","timestamp":"2025-06-12 21:37:34"}
+{"level":"error","message":"Admin authentication error: jwt malformed","service":"movie-booking-api","timestamp":"2025-06-12 21:37:36"}
+{"level":"error","message":"400 - Expected property name or '}' in JSON at position 7 - /admin/login - GET - ::1","service":"movie-booking-api","timestamp":"2025-06-12 21:38:34"}
+{"level":"error","message":"Admin authentication error: jwt malformed","service":"movie-booking-api","timestamp":"2025-06-12 21:38:42"}
+{"level":"error","message":"Admin authentication error: jwt malformed","service":"movie-booking-api","timestamp":"2025-06-12 21:40:13"}
+{"level":"error","message":"Admin authentication error: jwt malformed","service":"movie-booking-api","timestamp":"2025-06-12 21:40:28"}
+{"level":"error","message":"Admin authentication error: invalid token","service":"movie-booking-api","timestamp":"2025-06-12 21:44:18"}
+{"level":"error","message":"Get admin by ID error: Cast to ObjectId failed for value \"login\" (type string) at path \"_id\" for model \"admin\"","service":"movie-booking-api","timestamp":"2025-06-12 21:48:56"}
+{"level":"error","message":"Authentication error: invalid signature","service":"movie-booking-api","timestamp":"2025-06-14 20:51:39"}
+{"level":"error","message":"Authentication error: invalid signature","service":"movie-booking-api","timestamp":"2025-06-14 20:53:29"}
+{"level":"error","message":"Authentication error: invalid signature","service":"movie-booking-api","timestamp":"2025-06-14 20:56:38"}
