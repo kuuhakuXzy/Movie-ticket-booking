@@ -127,14 +127,20 @@ export const getShowtimesByMovie = async (req, res) => {
 export const getAvailableSeats = async (req, res) => {
   try {
     const { id } = req.params;
-    const showtime = await Showtime.findById(id).populate('seats');
     
+    // First verify showtime exists
+    const showtime = await Showtime.findById(id);
     if (!showtime) {
       return res.status(404).json({ message: "Showtime not found" });
     }
 
-    const availableSeats = showtime.seats.filter(seat => !seat.isBooked);
-    res.status(200).json({ availableSeats });
+    // Get all seats for this showtime from the Seat model
+    const seats = await Seat.find({ 
+      showtime: id,
+      isBooked: false 
+    });
+
+    res.status(200).json({ availableSeats: seats });
   } catch (error) {
     res.status(500).json({ message: "Error fetching available seats", error: error.message });
   }

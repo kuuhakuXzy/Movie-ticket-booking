@@ -5,10 +5,20 @@ import Seat from "../models/Seat.js";
 import FoodDrink from "../models/FoodDrink.js";
 import User from "../models/User.js";
 import Movie from "../models/Movie.js";
+import { v4 as uuidv4 } from 'uuid';
 
 export const createBooking = async (req, res) => {
   try {
-    const { showtimeId, seatIds, foodDrinks, userId } = req.body;
+    const { 
+      showtimeId, 
+      seatIds, 
+      foodDrinks,
+      customerInfo,
+      paymentMethod 
+    } = req.body;
+
+    // Get user from auth token
+    const userId = req.user.id;
 
     // Verify showtime exists
     const showtime = await Showtime.findById(showtimeId);
@@ -26,31 +36,48 @@ export const createBooking = async (req, res) => {
     let totalAmount = 0;
     
     // Add seat prices
-    seats.forEach(seat => {
+    const seatDetails = seats.map(seat => ({
+      seatNumber: seat.seatNumber,
+      price: seat.price
+    }));
+    
+    seatDetails.forEach(seat => {
       totalAmount += seat.price;
     });
 
     // Add food and drinks prices
+    let foodDrinkDetails = [];
     if (foodDrinks && foodDrinks.length > 0) {
       const foodDrinkItems = await FoodDrink.find({
         _id: { $in: foodDrinks.map(item => item.item) }
       });
 
-      foodDrinks.forEach(order => {
+      foodDrinkDetails = foodDrinks.map(order => {
         const item = foodDrinkItems.find(fd => fd._id.toString() === order.item);
         if (item) {
           totalAmount += item.price * order.quantity;
+          return {
+            item: item._id,
+            quantity: order.quantity,
+            price: item.price
+          };
         }
-      });
+      }).filter(Boolean);
     }
+
+    // Generate unique booking reference
+    const bookingReference = `BK${uuidv4().slice(0, 8).toUpperCase()}`;
 
     // Create booking
     const booking = new Booking({
       user: userId,
       showtime: showtimeId,
-      seats: seatIds,
-      foodDrinks,
+      seats: seatDetails,
+      foodDrinks: foodDrinkDetails,
+      customerInfo,
       totalAmount,
+      paymentMethod,
+      bookingReference,
       status: 'pending',
       paymentStatus: 'pending'
     });
