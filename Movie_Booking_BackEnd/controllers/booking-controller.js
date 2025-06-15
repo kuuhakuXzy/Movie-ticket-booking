@@ -4,7 +4,7 @@ import Showtime from "../models/Showtime.js";
 import Seat from "../models/Seat.js";
 import FoodDrink from "../models/FoodDrink.js";
 import User from "../models/User.js";
-import Movie from "../models/Movie.js";
+import {NowShowing} from "../models/Movie.js";
 import { v4 as uuidv4 } from 'uuid';
 
 export const createBooking = async (req, res) => {
@@ -180,7 +180,7 @@ export const newBookings = async(req, res, next)=>{
   let existingUser;
 
   try {
-    existingMovies = await Movie.findById(movie);
+    existingMovies = await NowShowing.findById(movie);
     existingUser = await User.findById(user);
     
   } catch (error) {

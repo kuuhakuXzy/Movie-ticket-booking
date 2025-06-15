@@ -1,4 +1,3 @@
-import Movie from "../models/Movie.js";
 import { NowShowing, ComingSoon } from "../models/Movie.js";
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
@@ -22,23 +21,29 @@ export const createMovie = async(req,res,next)=>{
     }
   });
 
-  const {title, description, releaseDate, posterUrl, featured, actors } = req.body;
+  const {title, description, releaseDate, image, wallpaper, rating, duration, genres } = req.body;
 
   if(!title && title.trim() === "" && 
   !description && description.trim() ==="" &&
-  !posterUrl && posterUrl.trim() === ""){
+  !image && image.trim() === "" &&
+  !wallpaper && wallpaper.trim() === "" &&
+  !rating && rating.trim() === "" &&
+  !duration && duration.trim() === "" &&
+  !genres && genres.trim() === ""){
     return res.status(422).json({message:"Invalid Inputs"})
   }
 
   let movie;
   try {
-    movie = new Movie({
+    movie = new NowShowing({
       title,
       description,
-      releaseDate: new Date(`${releaseDate}`),
-      posterUrl,
-      featured,
-      actors,
+      releaseDate,
+      image,
+      wallpaper,
+      rating,
+      duration,
+      genres,
       admin: adminId
     }) 
     const session = await mongoose.startSession();
@@ -59,9 +64,14 @@ export const createMovie = async(req,res,next)=>{
 }
 
 export const getAllMovies = async(req, res, next)=>{
+  let nowShowingMovies;
+  let comingSoonMovies;
   let movies;
   try {
-    movies = await Movie.find();
+    // Get all movies from NowShowing and ComingSoon collections
+    nowShowingMovies = await NowShowing.find();
+    comingSoonMovies = await ComingSoon.find();
+    movies = [...nowShowingMovies, ...comingSoonMovies];
   } catch (error) {
     return res.status(500).json({message: "Error fetching movies", error: error.message});
   }
@@ -77,11 +87,11 @@ export const getMovieById = async(req, res, next)=>{
   let movie;
   try {
     // First try to find by numeric id
-    movie = await Movie.findOne({ id: parseInt(id) });
+    movie = await NowShowing.findOne({ id: parseInt(id) });
     
     // If not found by numeric id and the id looks like a MongoDB ObjectId, try finding by _id
     if (!movie && mongoose.Types.ObjectId.isValid(id)) {
-      movie = await Movie.findById(id);
+      movie = await NowShowing.findById(id);
     }
   } catch (error) {
     return res.status(500).json({ message: "Error fetching movie", error: error.message });
@@ -96,19 +106,21 @@ export const getMovieById = async(req, res, next)=>{
 
 export const updateMovie = async(req, res, next) => {
   const id = req.params.id;
-  const { title, description, releaseDate, posterUrl, featured, actors } = req.body;
+  const { title, description, releaseDate, image, wallpaper, rating, duration, genres } = req.body;
 
   let movie;
   try {
-    movie = await Movie.findByIdAndUpdate(
+    movie = await NowShowing.findByIdAndUpdate(
       id,
       {
         title,
+        image,
+        wallpaper,
+        rating,
+        duration,
+        releaseDate,
+        genres,
         description,
-        releaseDate: new Date(`${releaseDate}`),
-        posterUrl,
-        featured,
-        actors
       },
       { new: true }
     );
@@ -128,7 +140,7 @@ export const deleteMovie = async(req, res, next) => {
 
   let movie;
   try {
-    movie = await Movie.findByIdAndDelete(id);
+    movie = await NowShowing.findByIdAndDelete(id);
   } catch (error) {
     return res.status(500).json({ message: "Error deleting movie", error: error.message });
   }
@@ -142,27 +154,35 @@ export const deleteMovie = async(req, res, next) => {
 
 export const toggleNowShowing = async(req, res, next) => {
   const id = req.params.id;
-  const { isNowShowing } = req.body;
+  const { nowShowing } = req.body;
 
   let movie;
   try {
-    movie = await Movie.findById(id);
-    if (!movie) {
-      return res.status(404).json({ message: "Movie not found" });
-    }
-
-    if (isNowShowing) {
-      const nowShowing = new NowShowing(movie.toObject());
-      await nowShowing.save();
-      await ComingSoon.findOneAndDelete({ _id: id });
+    // First try to find the movie in ComingSoon collection
+    movie = await ComingSoon.findById(id);
+    
+    if (movie) {
+      // If movie is in ComingSoon and we want to make it NowShowing
+      if (nowShowing) {
+        const movieData = movie.toObject();
+        await ComingSoon.findByIdAndDelete(id);
+        movie = await NowShowing.create(movieData);
+      }
     } else {
-      const comingSoon = new ComingSoon(movie.toObject());
-      await comingSoon.save();
-      await NowShowing.findOneAndDelete({ _id: id });
-    }
+      // If not in ComingSoon, try to find in NowShowing
+      movie = await NowShowing.findById(id);
+      
+      if (!movie) {
+        return res.status(404).json({ message: "Movie not found" });
+      }
 
-    movie.isNowShowing = isNowShowing;
-    await movie.save();
+      // If movie is in NowShowing and we want to make it ComingSoon
+      if (!nowShowing) {
+        const movieData = movie.toObject();
+        await NowShowing.findByIdAndDelete(id);
+        movie = await ComingSoon.create(movieData);
+      }
+    }
   } catch (error) {
     return res.status(500).json({ message: "Error toggling movie status", error: error.message });
   }

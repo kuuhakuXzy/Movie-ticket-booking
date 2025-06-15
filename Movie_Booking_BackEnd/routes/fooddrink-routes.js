@@ -18,9 +18,9 @@ router.get('/category/:category', getFoodDrinksByCategory);
 router.get('/:id', getFoodDrinkById);
 
 // Admin routes
-router.post('/', verifyUser, verifyAdmin, createFoodDrink);
-router.put('/:id', verifyUser, verifyAdmin, updateFoodDrink);
-router.delete('/:id', verifyUser, verifyAdmin, deleteFoodDrink);
-router.put('/:id/toggle-availability', verifyUser, verifyAdmin, toggleAvailability);
+router.post('/', verifyAdmin, createFoodDrink);
+router.put('/:id', verifyAdmin, updateFoodDrink);
+router.delete('/:id', verifyAdmin, deleteFoodDrink);
+router.put('/:id/toggle-availability', verifyAdmin, toggleAvailability);
 
 export default router; 

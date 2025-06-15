@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
 
+// Clear any existing models to prevent the "Model already exists" error
+mongoose.models = {};
+
 const movieSchema = new mongoose.Schema({
   id: {
     type: Number,
@@ -58,13 +61,10 @@ const movieSchema = new mongoose.Schema({
   timestamps: true
 });
 
-// Create the base Movie model
-const Movie = mongoose.model('Movie', movieSchema);
-
 // Create NowShowing model that extends Movie schema
 const NowShowing = mongoose.model('NowShowing', movieSchema);
 
 // Create ComingSoon model that extends Movie schema
 const ComingSoon = mongoose.model('ComingSoon', movieSchema);
 
-export { Movie as default, NowShowing, ComingSoon };
+export { NowShowing, ComingSoon };
