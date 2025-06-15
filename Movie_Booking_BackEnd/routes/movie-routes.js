@@ -20,9 +20,9 @@ router.get('/coming-soon', getComingSoonMovies);
 router.get('/:id', getMovieById);
 
 // Admin routes
-router.post('/', verifyUser, verifyAdmin, createMovie);
-router.put('/:id', verifyUser, verifyAdmin, updateMovie);
-router.delete('/:id', verifyUser, verifyAdmin, deleteMovie);
-router.put('/:id/toggle-showing', verifyUser, verifyAdmin, toggleNowShowing);
+router.post('/', verifyAdmin, createMovie);
+router.put('/:id', verifyAdmin, updateMovie);
+router.delete('/:id', verifyAdmin, deleteMovie);
+router.put('/:id/toggle-showing', verifyAdmin, toggleNowShowing);
 
 export default router;

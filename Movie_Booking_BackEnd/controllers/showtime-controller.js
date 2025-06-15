@@ -1,5 +1,5 @@
 import Showtime from "../models/Showtime.js";
-import Movie from "../models/Movie.js";
+import {NowShowing} from "../models/Movie.js";
 import Seat from "../models/Seat.js";
 
 export const createShowtime = async (req, res) => {
@@ -7,7 +7,7 @@ export const createShowtime = async (req, res) => {
     const { movieId, cinema, hall, date, startTime, endTime, price } = req.body;
 
     // Verify movie exists
-    const movie = await Movie.findById(movieId);
+    const movie = await NowShowing.findById(movieId);
     if (!movie) {
       return res.status(404).json({ message: "Movie not found" });
     }
@@ -23,7 +23,51 @@ export const createShowtime = async (req, res) => {
     });
 
     await showtime.save();
-    res.status(201).json({ showtime });
+
+    // Create seats for the showtime based on hall
+    const seats = [];
+    let rows, seatsPerRow;
+    
+    // Configure seat layout based on hall
+    switch(hall) {
+      case 'Hall 1':
+        rows = ['A', 'B', 'C', 'D', 'E', 'F'];
+        seatsPerRow = 10; // 60 seats total
+        break;
+      case 'Hall 2':
+        rows = ['A', 'B', 'C', 'D'];
+        seatsPerRow = 10; // 40 seats total
+        break;
+      case 'Hall 3':
+        rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+        seatsPerRow = 10; // 80 seats total
+        break;
+      default:
+        return res.status(400).json({ message: "Invalid hall number" });
+    }
+    
+    for (let row of rows) {
+      for (let seatNum = 1; seatNum <= seatsPerRow; seatNum++) {
+        const area = row === 'F' || row === 'G' ? 'VIP' : 'Standard';
+        const seatPrice = area === 'VIP' ? price * 1.5 : price; // VIP seats cost 1.5x more
+        
+        seats.push({
+          seatNumber: `${row}${seatNum}`,
+          row: row,
+          area: area,
+          price: seatPrice,
+          isBooked: false,
+          showtime: showtime._id
+        });
+      }
+    }
+    
+    await Seat.insertMany(seats);
+
+    res.status(201).json({ 
+      showtime,
+      message: `Created showtime with ${seats.length} seats in ${hall}`
+    });
   } catch (error) {
     res.status(500).json({ message: "Error creating showtime", error: error.message });
   }

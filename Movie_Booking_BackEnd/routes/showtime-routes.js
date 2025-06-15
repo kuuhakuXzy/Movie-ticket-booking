@@ -20,9 +20,9 @@ router.get('/:id', getShowtimeById);
 router.get('/:id/seats', getAvailableSeats);
 
 // Admin routes
-router.post('/', verifyUser, verifyAdmin, createShowtime);
-router.put('/:id', verifyUser, verifyAdmin, updateShowtime);
-router.delete('/:id', verifyUser, verifyAdmin, deleteShowtime);
-router.put('/:id/seats/:seatNumber', verifyUser, updateSeatStatus);
+router.post('/', verifyAdmin, createShowtime);
+router.put('/:id', verifyAdmin, updateShowtime);
+router.delete('/:id', verifyAdmin, deleteShowtime);
+router.put('/:id/seats/:seatNumber', verifyAdmin, updateSeatStatus);
 
 export default router; 

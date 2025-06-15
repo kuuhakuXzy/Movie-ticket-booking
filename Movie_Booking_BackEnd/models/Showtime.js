@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const showtimeSchema = new mongoose.Schema({
   movie: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Movie',
+    ref: 'NowShowing',
     required: true
   },
   cinema: {
