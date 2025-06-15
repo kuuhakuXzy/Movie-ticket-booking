@@ -35,7 +35,13 @@ export const createMovie = async(req,res,next)=>{
 
   let movie;
   try {
-    movie = new NowShowing({
+    // Get the count of existing movies to generate a new ID
+    const nowShowingCount = await NowShowing.countDocuments();
+    const comingSoonCount = await ComingSoon.countDocuments();
+    const movieCount = nowShowingCount + comingSoonCount;
+    
+    movie = new ComingSoon({
+      id: movieCount + 1,
       title,
       description,
       releaseDate,
@@ -44,6 +50,7 @@ export const createMovie = async(req,res,next)=>{
       rating,
       duration,
       genres,
+      nowShowing: false,
       admin: adminId
     }) 
     const session = await mongoose.startSession();
@@ -167,6 +174,8 @@ export const toggleNowShowing = async(req, res, next) => {
         const movieData = movie.toObject();
         await ComingSoon.findByIdAndDelete(id);
         movie = await NowShowing.create(movieData);
+        movie.nowShowing = true;
+        await movie.save();
       }
     } else {
       // If not in ComingSoon, try to find in NowShowing
@@ -181,6 +190,8 @@ export const toggleNowShowing = async(req, res, next) => {
         const movieData = movie.toObject();
         await NowShowing.findByIdAndDelete(id);
         movie = await ComingSoon.create(movieData);
+        movie.nowShowing = false;
+        await movie.save();
       }
     }
   } catch (error) {
