@@ -15,6 +15,7 @@ import './index.css'
 
 // import admin page
 import DashboardPage from './admin/pages/Dashboard.tsx'
+import LoginAdminPage from './admin/pages/LoginAdminPage.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -28,7 +29,9 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/movielist" element={<MovieListPage />} />
         <Route path="/fooddrinks" element={<FoodDrinksPage />} />
         <Route path="/newsupdates" element={<NewsUpdatesPage />} />
+
         <Route path="/dashboard/admin" element={<DashboardPage />} />
+        <Route path="/login/admin" element={<LoginAdminPage />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,
