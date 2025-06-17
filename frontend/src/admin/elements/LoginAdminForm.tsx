@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { adminLogin } from '../api/api';
 export function LoginAdminForm() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -7,28 +8,24 @@ export function LoginAdminForm() {
     const navigate = useNavigate()
 
     const handleLogin = async (e: React.FormEvent) => {
-        e.preventDefault();
+    e.preventDefault();
 
-        try {
-        const res = await fetch('http://localhost:5000/admin/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password }),
-        });
-
-        const data = await res.json();
-
-        if (!res.ok) throw new Error(data.message || 'Login failed');
+    try {
+        const response = await adminLogin(email, password);
 
         // Save token
-        localStorage.setItem('token', data.token);
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('email', response.email)
+
+        console.log('Response: ', response)
 
         // Redirect to dashboard
         navigate('/dashboard/admin');
-        } catch (err: any) {
-        setError(err.message);
-        }
-    };
+    } catch (err: any) {
+        setError(err.response?.data?.message || 'Login failed');
+    }
+};
+
 
     return (
         <form onSubmit={handleLogin} className="space-y-4">

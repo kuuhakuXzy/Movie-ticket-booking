@@ -20,13 +20,44 @@ export interface MovieResponse extends MovieInput {
   updatedAt: string;
 }
 
-export const addMovie = async (movie: MovieInput): Promise<MovieResponse> => {
+
+export interface AdminLoginResponse {
+  message: string;
+  token: string;
+  id: string;
+  email: string;
+  role: string;
+}
+
+export const adminLogin = async (
+  email: string,
+  password: string
+): Promise<AdminLoginResponse> => {
+  const response = await fetch(`${BASE_URL}/admin/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password }),
+  });
+
+  const data = await response.json();
+  console.log("hello");
+
+  if (!response.ok) {
+    throw new Error(data.message || 'Login failed');
+  }
+
+  localStorage.setItem('token', data.token); // Save token for future requests
+
+  return data as AdminLoginResponse;
+}; 
+
+export const createMovie = async (formData: FormData): Promise<MovieResponse> => {
   const token = localStorage.getItem('token');
 
-  const response = await fetch(`${BASE_URL}/movie`, {
+  const response = await fetch(`${BASE_URL}/admin/movies`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`, },
-    body: JSON.stringify(movie),
+    headers: { 'Authorization': `Bearer ${token}` },
+    body: formData,
   });
 
   const data = await response.json();

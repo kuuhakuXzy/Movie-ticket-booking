@@ -41,12 +41,8 @@ export const validateMovie = [
     .withMessage('Please enter a valid release date'),
   
   body('duration')
-    .isInt({ min: 1 })
-    .withMessage('Duration must be a positive number'),
-  
-  body('price')
-    .isFloat({ min: 0 })
-    .withMessage('Price must be a positive number'),
+  .matches(/^\d+\s?minutes$/i)
+  .withMessage('Duration must be in the format like "120 minutes"')
 ];
 
 // Booking validation middleware

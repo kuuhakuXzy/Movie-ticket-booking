@@ -1,15 +1,16 @@
 import express from 'express';
-import { 
-  addAdmin, 
-  adminLogin, 
-  getAdmins, 
+import {
+  addAdmin,
+  adminLogin,
+  createMovie,
+  deleteMovie,
   getAdminById,
-  addMovie,
-  updateMovie,
-  deleteMovie 
+  getAdmins,
+  updateMovie
 } from '../controllers/admin-controller.js';
 import { verifyAdmin } from '../middleware/auth.js';
-import { validateMovie, validate } from '../middleware/validators.js';
+import { upload } from '../middleware/multer.js';
+import { validate, validateMovie } from '../middleware/validators.js';
 
 const adminRouter = express.Router();
 
@@ -25,7 +26,12 @@ adminRouter.get("/", getAdmins);
 adminRouter.get('/:id', getAdminById);
 
 // Movie management routes
-adminRouter.post('/movies', validateMovie, validate, addMovie);
+adminRouter.post('/movies',
+  upload.fields([
+    { name: 'image', maxCount: 1 },
+    { name: 'wallpaper', maxCount: 1 }
+  ]),
+  validateMovie, validate, createMovie);
 adminRouter.put('/movies/:id', validateMovie, validate, updateMovie);
 adminRouter.delete('/movies/:id', deleteMovie);
 
