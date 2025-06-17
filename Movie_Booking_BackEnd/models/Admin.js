@@ -14,7 +14,13 @@ const adminSchema = new mongoose.Schema({
   addedmovies:[{
     type:mongoose.Types.ObjectId,
     ref:"Movie"
+  }],
+  addedFoodDrinks:[{
+    type:mongoose.Types.ObjectId,
+    ref:"FoodDrink"
   }]
-})
+}, {
+  timestamps: true
+});
 
 export default mongoose.model('admin',adminSchema);
