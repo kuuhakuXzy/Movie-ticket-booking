@@ -1,33 +1,31 @@
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import AppSidebar from '@/app/elements/app-sidebar';
 import { Film } from 'lucide-react';
+import { convertGoogleDriveUrl } from '@/lib/utils';
 
 interface FoodItem {
-  id: number;
+  _id: string;
   name: string;
   price: number;
   description: string;
   image: string;
 }
 
-const foodData: FoodItem[] = [
-  {
-    id: 1,
-    name: 'Popcorn',
-    price: 70000,
-    description: 'Buttery popcorn, perfect for your movie.',
-    image: 'https://example.com/popcorn.jpg', // Replace with real image path
-  },
-  {
-    id: 2,
-    name: 'Soda',
-    price: 40000,
-    description: 'Refreshing cola, 500ml.',
-    image: 'https://example.com/soda.jpg', // Replace with real image path
-  },
-];
-
 export default function FoodDrinksPage() {
+  const [foodData, setFoodData] = useState<FoodItem[]>([]);
+
+  useEffect(() => {
+    axios.get('http://localhost:5000/food-drink')
+      .then(res => {
+        setFoodData(res.data.foodDrinks || []);
+        })
+      .catch(err => {
+        console.error('Error fetching food data:', err);
+      });
+  }, []);
+
   return (
     <div className="bg-jet-black min-h-screen text-white flex">
       <SidebarProvider defaultOpen={true}>
@@ -41,11 +39,11 @@ export default function FoodDrinksPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {foodData.map((item: FoodItem) => (
               <div
-                key={item.id}
+                key={item._id}
                 className="bg-gray-800 rounded-lg overflow-hidden shadow-lg"
               >
                 <img
-                  src={item.image}
+                  src={convertGoogleDriveUrl(item.image)} // Adjust if your backend serves images differently
                   alt={item.name}
                   className="w-[500px] h-[300px] object-cover"
                 />

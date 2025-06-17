@@ -25,7 +25,14 @@ const foodDrinkSchema = new mongoose.Schema({
   isAvailable: {
     type: Boolean,
     default: true
+  },
+  admin: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Admin',
+    required: true
   }
+}, {
+  timestamps: true
 });
 
 export default mongoose.model('FoodDrink', foodDrinkSchema); 

@@ -52,7 +52,4 @@
 {"level":"error","message":"Authentication error: invalid signature","service":"movie-booking-api","timestamp":"2025-06-15 11:33:59"}
 {"level":"error","message":"Authentication error: invalid signature","service":"movie-booking-api","timestamp":"2025-06-15 11:34:43"}
 {"level":"error","message":"400 - Expected double-quoted property name in JSON at position 214 - /booking - GET - ::1","service":"movie-booking-api","timestamp":"2025-06-15 12:16:36"}
-{"level":"error","message":"400 - Expected ',' or '}' after property value in JSON at position 23 - /user/signup - POST - ::1","service":"movie-booking-api","timestamp":"2025-06-16 14:27:42"}
-{"level":"error","message":"MongoDB connection error: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/","service":"movie-booking-api","timestamp":"2025-06-16 15:50:04"}
-{"level":"error","message":"400 - Unexpected non-whitespace character after JSON at position 638 - /movie - POST - ::1","service":"movie-booking-api","timestamp":"2025-06-17 14:09:39"}
-{"level":"error","message":"400 - Unexpected end of JSON input - /movie/68511a0a9f359f0b35bb5a38/toggle-showing - PUT - ::1","service":"movie-booking-api","timestamp":"2025-06-17 14:43:56"}
+{"level":"error","message":"Authentication error: invalid signature","service":"movie-booking-api","timestamp":"2025-06-15 21:30:02"}
