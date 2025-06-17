@@ -14,6 +14,10 @@ const adminSchema = new mongoose.Schema({
   addedmovies:[{
     type:mongoose.Types.ObjectId,
     ref:"Movie"
+  }],
+  addedFoodDrinks:[{
+    type:mongoose.Types.ObjectId,
+    ref:"FoodDrink"
   }]
 })
 

@@ -49,7 +49,7 @@ export const adminLogin = async (
   localStorage.setItem('token', data.token); // Save token for future requests
 
   return data as AdminLoginResponse;
-}; 
+};
 
 export const createMovie = async (formData: FormData): Promise<MovieResponse> => {
   const token = localStorage.getItem('token');
