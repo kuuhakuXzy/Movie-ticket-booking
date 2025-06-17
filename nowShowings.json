@@ -1,0 +1,73 @@
+[
+
+  {
+    "title": "Interstellar",
+    "image": "interstellar.jpg",
+    "wallpaper": "wallpaper_interstellar.jpg",
+    "rating": "PG-13",
+    "duration": "2h49m",
+    "releaseDate": "2014-11-07T00:00:00.000+00:00",
+    "genres": ["Adventure", "Drama", "Sci-Fi"],
+    "description": "A team of explorers travel through a wormhole in space.",
+    "nowShowing": false,
+    "showtimes": [],
+    "bookings": [],
+    "admin": "ObjectId('admin_id')"
+  },
+  {
+    "title": "Mắt Biếc",
+    "image": "matbiec.jpg",
+    "wallpaper": "wallpaper_matbiec.jpg",
+    "rating": "PG",
+    "duration": "1h57m",
+    "releaseDate": "2019-12-20T00:00:00.000+00:00",
+    "genres": ["Drama", "Romance"],
+    "description": "Chuyện tình đơn phương của Ngạn và Hà Lan từ thời thơ ấu đến trưởng thành.",
+    "nowShowing": false,
+    "showtimes": [],
+    "bookings": [],
+    "admin": "ObjectId('admin_id')"
+  },
+  {
+    "title": "Tenet",
+    "image": "tenet.jpg",
+    "wallpaper": "wallpaper_tenet.jpg",
+    "rating": "PG-13",
+    "duration": "2h30m",
+    "releaseDate": "2020-08-26T00:00:00.000+00:00",
+    "genres": ["Action", "Sci-Fi", "Thriller"],
+    "description": "A secret agent manipulates time to prevent World War III.",
+    "nowShowing": false,
+    "showtimes": [],
+    "bookings": [],
+    "admin": "ObjectId('admin_id')"
+  },
+  {
+    "title": "Transformers: The Last Knight",
+    "image": "transformer.jpg",
+    "wallpaper": "wallpaper_transformer.jpg",
+    "rating": "PG-13",
+    "duration": "2h34m",
+    "releaseDate": "2017-06-21T00:00:00.000+00:00",
+    "genres": ["Action", "Adventure", "Sci-Fi"],
+    "description": "Humans and Transformers are at war, Optimus Prime is gone.",
+    "nowShowing": false,
+    "showtimes": [],
+    "bookings": [],
+    "admin": "ObjectId('admin_id')"
+  },
+  {
+    "title": "Zootopia",
+    "image": "zootopia.jpg",
+    "wallpaper": "wallpaper_zootopia.jpg",
+    "rating": "PG",
+    "duration": "1h48m",
+    "releaseDate": "2016-03-04T00:00:00.000+00:00",
+    "genres": ["Animation", "Adventure", "Comedy"],
+    "description": "In a city of anthropomorphic animals, a rabbit cop teams with a fox.",
+    "nowShowing": true,
+    "showtimes": [],
+    "bookings": [],
+    "admin": "ObjectId('admin_id')"
+  }
+]
