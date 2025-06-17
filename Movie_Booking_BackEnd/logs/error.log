@@ -52,3 +52,4 @@
 {"level":"error","message":"Authentication error: invalid signature","service":"movie-booking-api","timestamp":"2025-06-15 11:33:59"}
 {"level":"error","message":"Authentication error: invalid signature","service":"movie-booking-api","timestamp":"2025-06-15 11:34:43"}
 {"level":"error","message":"400 - Expected double-quoted property name in JSON at position 214 - /booking - GET - ::1","service":"movie-booking-api","timestamp":"2025-06-15 12:16:36"}
+{"level":"error","message":"Authentication error: invalid signature","service":"movie-booking-api","timestamp":"2025-06-15 21:30:02"}

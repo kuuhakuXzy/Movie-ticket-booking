@@ -13,7 +13,7 @@ async function seedMovies() {
     // Create test now showing movies
     const nowShowingMovies = [
       {
-        id: 1,
+        id: 5,
         title: "Now Showing Movie 1",
         image: "now-showing-1.jpg",
         wallpaper: "now-showing-wallpaper-1.jpg",
