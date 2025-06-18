@@ -1,8 +1,81 @@
 import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
 import mongoose from "mongoose";
+import Admin from '../models/Admin.js';
 import Movie, { ComingSoon, NowShowing } from "../models/Movie.js";
 dotenv.config();
 
+export const createMovie = async (req, res) => {
+  try {
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return res.status(401).json({ message: "Token not found or invalid format" });
+    }
+
+    const extractedToken = authHeader.split(" ")[1];
+
+    let adminId;
+    try {
+      const decrypted = jwt.verify(extractedToken, process.env.SECRET_KEY);
+      adminId = decrypted.id;
+    } catch (err) {
+      return res.status(401).json({ message: "Invalid token", error: err.message });
+    }
+
+    const { id, title, description, releaseDate, image, wallpaper, rating, duration, genres, nowShowing } = req.body;
+
+    if (!image || !wallpaper) {
+      return res.status(400).json({ message: "Image and wallpaper links are required" });
+    }
+
+    const formattedDate = new Date(releaseDate).toLocaleDateString('en-GB').replace(/\//g, '-');
+
+    const session = await mongoose.startSession();
+    let movie;
+
+    try {
+      session.startTransaction();
+
+      const adminUser = await Admin.findById(adminId);
+      if (!adminUser) {
+        await session.abortTransaction();
+        return res.status(404).json({ message: "Admin not found" });
+      }
+
+      movie = new Movie({
+        id,
+        title,
+        description,
+        releaseDate: formattedDate,
+        image,
+        wallpaper,
+        rating,
+        duration,
+        genres,
+        nowShowing,
+        admin: adminId,
+      });
+
+      await movie.save({ session });
+
+      adminUser.addedmovies.push(movie);
+      await adminUser.save({ session });
+
+      await session.commitTransaction();
+    } catch (error) {
+      await session.abortTransaction();
+      return res.status(500).json({ message: "Error creating movie", error: error.message });
+    } finally {
+      session.endSession();
+    }
+
+    return res.status(201).json({ movie });
+
+  } catch (err) {
+    return res.status(500).json({ message: "Internal server error", error: err.message });
+  }
+};
 
 export const getAllMovies = async (req, res, next) => {
   try {

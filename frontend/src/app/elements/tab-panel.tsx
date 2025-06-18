@@ -9,6 +9,8 @@ import { HeartIcon, TicketIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchMovies } from "../api/api";
+import { convertGoogleDriveUrl } from "@/lib/utils";
+
 const BASE_URL = 'http://localhost:5000';
 
 type Movie = {
@@ -32,9 +34,12 @@ export default function TabsPanel() {
         .then((data) => {
             console.log('Fetched movies:', data);
             setMovies(data);
+            console.log(data[1].image)
         })
         .catch(console.error);
     }, []);
+
+    
 
     const handleBooking = (id: number) => {
         navigate(`/booking/${id}`);
@@ -54,7 +59,7 @@ export default function TabsPanel() {
                     <>
                         <div key={index} className="flex items-center gap-4 mb-10">
                                 <img
-                                    src={`${BASE_URL}${data.image}`}
+                                    src={convertGoogleDriveUrl(data.image)}
                                     alt={`${data.title} Poster`}
                                     className="w-32 h-48 rounded-lg object-cover cursor-pointer"
                                 />

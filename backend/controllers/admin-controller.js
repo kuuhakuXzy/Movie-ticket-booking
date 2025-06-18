@@ -1,7 +1,6 @@
 import bcrypt from 'bcryptjs';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
-import mongoose from 'mongoose';
 import Admin from "../models/Admin.js";
 import Movie from "../models/Movie.js";
 import logger from '../utils/logger.js';
@@ -90,67 +89,6 @@ export const adminLogin = async(req, res, next) => {
       role: "admin",
     });
 };
-
-export const createMovie = async(req, res) => {
-  const extractedToken = req.headers.authorization.split(' ')[1];
-  if(!extractedToken && extractedToken.trim() === ""){
-    return res.status(404).json({message:"Token Not Found"})
-  }
-
-  let adminId;
-  jwt.verify(extractedToken, process.env.JWT_SECRET, (err, decrypted) => {
-    if(err){
-      return res.status(400).json({message: `${err.message}`})
-    } else {
-      adminId = decrypted.id;
-      return;
-    }
-  });
-
-  const { id, title, description, releaseDate, rating, duration, genres, nowShowing } = req.body;
-
-  const imageFile = req.files?.image?.[0];
-  const wallpaperFile = req.files?.wallpaper?.[0];
-  const formattedDate = new Date(releaseDate).toLocaleDateString('en-GB').replace(/\//g, '-');
-
-  if (!imageFile || !wallpaperFile) {
-    return res.status(400).json({ message: "Image and wallpaper files are required" });
-  }
-
-  let movie;
-  try {
-    movie = new Movie({
-      id,
-      title,
-      description,
-      releaseDate: formattedDate,
-      image: `/static/${imageFile.filename}`,
-      wallpaper: `/static/${wallpaperFile.filesname}`,
-      rating,
-      duration,
-      genres,
-      nowShowing,
-      admin: adminId,
-    });
-    const session = await mongoose.startSession();
-    const adminUser = await Admin.findById(adminId);
-
-    session.startTransaction();
-
-    await movie.save({session})
-    adminUser.addedmovies.push(movie);
-    await adminUser.save({session});
-
-    await session.commitTransaction();
-  } catch (error) {
-    return res.status(500).json({message: "Error creating movie", error: error.message});
-  }
-
-  if (!movie) {
-    return res.status(500).json({message:"Request Failed"});
-  }
-  return res.status(201).json({movie})
-}
 
 export const getAdmins = async(req, res, next) => {
   try {

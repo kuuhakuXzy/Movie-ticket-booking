@@ -1,33 +1,30 @@
 import { SidebarProvider } from '@/components/ui/sidebar';
 import AppSidebar from '@/app/elements/app-sidebar';
 import { Film } from 'lucide-react';
+import { fetchFoodDrink } from '../api/api';
+import { useEffect, useState } from 'react';
 
-interface FoodItem {
-  id: number;
+type FoodDrink = {
   name: string;
-  price: number;
   description: string;
+  price: string;
+  category: 'Food' | 'Drink' | 'Combo';
   image: string;
-}
-
-const foodData: FoodItem[] = [
-  {
-    id: 1,
-    name: 'Popcorn',
-    price: 70000,
-    description: 'Buttery popcorn, perfect for your movie.',
-    image: 'https://example.com/popcorn.jpg', // Replace with real image path
-  },
-  {
-    id: 2,
-    name: 'Soda',
-    price: 40000,
-    description: 'Refreshing cola, 500ml.',
-    image: 'https://example.com/soda.jpg', // Replace with real image path
-  },
-];
+  isAvailable: boolean;
+};
 
 export default function FoodDrinksPage() {
+  const [foodDrink, setFoodDrink] = useState<FoodDrink[]>([]);
+
+  useEffect(() => {
+    fetchFoodDrink()
+      .then((data) => {
+        console.log('Fetched food & drinks:', data);
+        setFoodDrink(data);
+      })
+      .catch(console.error);
+  }, []);
+
   return (
     <div className="bg-jet-black min-h-screen text-white flex">
       <SidebarProvider defaultOpen={true}>
@@ -39,13 +36,13 @@ export default function FoodDrinksPage() {
           </a>
           <h1 className="text-3xl font-bold mb-6">Food & Drinks</h1>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {foodData.map((item: FoodItem) => (
+            {foodDrink.map((item, index) => (
               <div
-                key={item.id}
+                key={index}
                 className="bg-gray-800 rounded-lg overflow-hidden shadow-lg"
               >
                 <img
-                  src={item.image}
+                  src={`http://localhost:5000/static/${item.image}`}
                   alt={item.name}
                   className="w-[500px] h-[300px] object-cover"
                 />
@@ -55,7 +52,7 @@ export default function FoodDrinksPage() {
                     {new Intl.NumberFormat('vi-VN', {
                       style: 'currency',
                       currency: 'VND',
-                    }).format(item.price)}
+                    }).format(Number(item.price))}
                   </p>
                   <p className="text-sm mt-2">{item.description}</p>
                 </div>
