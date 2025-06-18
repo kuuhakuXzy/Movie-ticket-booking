@@ -1,7 +1,6 @@
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
-import { fileURLToPath } from 'url';
 import dbconnect from './DB/dbconfig.js';
 import adminRouter from './routes/admin-routes.js';
 import bookingRouter from './routes/booking-routes.js';
@@ -10,7 +9,6 @@ import movieRouter from './routes/movie-routes.js';
 import showtimeRouter from './routes/showtime-routes.js';
 import userRouter from './routes/user-routes.js';
 import logger from './utils/logger.js';
-import path from 'path';
 
 dotenv.config();
 
@@ -22,6 +20,7 @@ app.use(cors({
   origin: 'http://localhost:5173',
   credentials: true
 }));
+app.use(express.json());
 
 // Routes
 app.use("/user", userRouter);

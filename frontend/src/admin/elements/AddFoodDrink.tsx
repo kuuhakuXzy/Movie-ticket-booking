@@ -6,13 +6,13 @@ import { createFoodDrink } from "../api/api";
 
 export function AddFoodDrink() {
     type FoodDrink = {
+        _id?: string,
         name: string;
         description: string;
         price: string;
         category: 'Food' | 'Drink' | 'Combo';
         image: string;
         isAvailable: boolean;
-        _id?: string; // optional in case it's from backend
     };
 
     const [showAddForm, setShowAddForm] = useState(false);
