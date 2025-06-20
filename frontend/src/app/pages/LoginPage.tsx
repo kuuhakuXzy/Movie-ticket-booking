@@ -2,13 +2,15 @@ import { Film } from "lucide-react"
 
 import { LoginForm } from "@/app/elements/login-form"
 
+import backgroundLogin from "@/assets/login-background.jpg"
+
 export default function LoginPage() {
     return (
         <div className="bg-white">
             <div className="grid min-h-screen lg:grid-cols-2">
                 <div className="relative">
                     <img
-                        src="src/assets/login-background.jpg"
+                        src={backgroundLogin}
                         alt="Image"
                         className="h-full"
                     />

@@ -27,6 +27,40 @@ type MovieResponse = {
   nowShowing: boolean;
 };
 
+export type BookingPayload = {
+  showtimeId: string;
+  seatIds: string[];
+  foodDrinks: {
+    item: string;
+    quantity: number;
+  }[];
+  customerInfo: {
+    name: string;
+    email: string;
+    phone: string;
+  };
+  paymentMethod: "cash" | "credit_card" | "momo" | "zalo";
+};
+
+export type BookingResponse = {
+  _id: string;
+  user: string;
+  showtime: string;
+  seats: { seatNumber: string; price: number }[];
+  foodDrinks: { item: string; quantity: number; price: number }[];
+  customerInfo: {
+    name: string;
+    email: string;
+    phone: string;
+  };
+  totalAmount: number;
+  paymentMethod: string;
+  bookingReference: string;
+  status: string;
+  paymentStatus: string;
+  createdAt: string;
+};
+
 
 export interface AdminLoginResponse {
   message: string;
@@ -72,7 +106,7 @@ export const adminLogin = async (
     throw new Error(data.message || 'Login failed');
   }
 
-  localStorage.setItem('token', data.token); // Save token for future requests
+  localStorage.setItem('token', data.token);
 
   return data as AdminLoginResponse;
 };
@@ -80,12 +114,13 @@ export const adminLogin = async (
 
 export const createMovie = async (movie: MoviePayload): Promise<MovieResponse> => {
   const token = localStorage.getItem('token');
+  if (!token) throw new Error("No token found in localStorage");
 
-  const response = await fetch(`${BASE_URL}/movie/add-movie`, {
+  const response = await fetch(`${BASE_URL}/movie/addMovie`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
+      'Authorization': `Bearer ${token}`,
     },
     body: JSON.stringify(movie),
   });
@@ -116,4 +151,28 @@ export const createFoodDrink = async (foodDrink: FoodDrinkPayload): Promise<Food
   console.log('Added food/drink:', data.foodDrink);
 
   return data.foodDrink as FoodDrinkResponse;
+};
+
+export const createBooking = async (
+  bookingData: BookingPayload
+): Promise<BookingResponse> => {
+  const token = localStorage.getItem("token");
+  if (!token) throw new Error("Unauthorized: No token found");
+
+  const res = await fetch(`${BASE_URL}/booking/create`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(bookingData),
+  });
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data.message || "Failed to create booking");
+  }
+
+  return data.booking;
 };

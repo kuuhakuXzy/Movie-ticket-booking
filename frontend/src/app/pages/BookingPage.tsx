@@ -1,10 +1,11 @@
-import AppDrawer from "@/app/elements/app-drawer";
+
 import AppSidebar from "@/app/elements/app-sidebar";
 import { Footer } from "@/app/elements/footer";
 import { Header } from "@/app/elements/header";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { movieData } from "@/data/movieData";
 import { useParams } from "react-router-dom";
+import CinemaDrawer from "../elements/cinema-drawer";
 
 export default function BookingPage() {
     const { id } = useParams();
@@ -47,7 +48,7 @@ export default function BookingPage() {
 
             <div className="flex flex-col px-10 py-8">
                 <div className="text-2xl font-poppins mb-3">Times & Tickets</div>
-                <AppDrawer />
+                    <CinemaDrawer/>
             </div>
             <Footer/>
             </div>

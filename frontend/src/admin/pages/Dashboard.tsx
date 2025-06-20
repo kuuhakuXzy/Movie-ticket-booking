@@ -7,9 +7,9 @@ import {
     TabsTrigger
 } from '@/components/ui/tabs';
 
-// import AddFoodDrink from '../elements/AddFoodDrink';
 import { AddMovie } from '../elements/AddMovie';
 import { UserDropdown } from '../elements/UserDropdown';
+import { AddFoodDrink } from '../elements/AddFoodDrink';
 
 export default function DashboardPage() {
     return (
@@ -18,7 +18,7 @@ export default function DashboardPage() {
             {/* Top-right user dropdown */}
             < UserDropdown />
 
-            <Tabs defaultValue="overview" className="space-y-4">
+                <Tabs defaultValue="overview" className="space-y-4">
                 <div className="flex flex-col gap-2 md:flex-col md:items-center md:justify-start">
                     <h2 className="text-3xl font-bold tracking-tight">Admin Dashboard</h2>
                     <TabsList>
@@ -28,7 +28,8 @@ export default function DashboardPage() {
                 </div>
 
                 <AddMovie />
-                {/* <AddFoodDrink /> */}
+                <AddFoodDrink />
+                
 
             </Tabs>
         </div>
