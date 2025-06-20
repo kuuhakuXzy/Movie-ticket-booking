@@ -18,7 +18,7 @@ router.get('/coming-soon', getComingSoonMovies);
 router.get('/:id', getMovieById);
 
 // Admin routes
-router.post('/add-movie', verifyAdmin, validateMovie, createMovie);
+router.post('/addMovie', verifyAdmin, createMovie);
 // router.put('/:id', verifyUser, verifyAdmin, updateMovie);
 // router.delete('/:id', verifyUser, verifyAdmin, deleteMovie);
 // router.put('/:id/toggle-showing', verifyUser, verifyAdmin, toggleNowShowing);

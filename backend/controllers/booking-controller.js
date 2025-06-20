@@ -1,20 +1,20 @@
 import mongoose from "mongoose";
-import Booking from "../models/Bookings.js";
-import Showtime from "../models/Showtime.js";
-import Seat from "../models/Seat.js";
-import FoodDrink from "../models/FoodDrink.js";
-import User from "../models/User.js";
-import Movie from "../models/Movie.js";
 import { v4 as uuidv4 } from 'uuid';
+import Booking from "../models/Bookings.js";
+import FoodDrink from "../models/FoodDrink.js";
+import Movie from "../models/Movie.js";
+import Seat from "../models/Seat.js";
+import Showtime from "../models/Showtime.js";
+import User from "../models/User.js";
 
 export const createBooking = async (req, res) => {
   try {
-    const { 
-      showtimeId, 
-      seatIds, 
+    const {
+      showtimeId,
+      seatIds,
       foodDrinks,
       customerInfo,
-      paymentMethod 
+      paymentMethod
     } = req.body;
 
     // Get user from auth token
@@ -169,13 +169,6 @@ export const newBookings = async(req, res, next)=>{
   
   const {movie, date, seatNumber, user} = req.body;
 
-  // if(!movie && movie.trim() === "" &&
-  //  !date && date.trim() === "" &&
-  //  !seatNumber && seatNumber === "" &&
-  //  !user && user === "" ){
-  //   return res.status(422).json({message:"Invalid inputs"})
-  //  }
-
   let existingMovies;
   let existingUser;
 
@@ -194,8 +187,8 @@ export const newBookings = async(req, res, next)=>{
     return res.status(404).json({message: "User Not Found with given ID"})
   }
 
-   let booking;
-   try {
+    let booking;
+    try {
     
     booking = new Booking({movie, date:new Date(`${date}`), seatNumber, user})
 
@@ -208,15 +201,15 @@ export const newBookings = async(req, res, next)=>{
     await booking.save({session})
     session.commitTransaction();
 
-   } catch (error) {
-    return console.log(error)
-   }
+  } catch (error) {
+  return console.log(error)
+  }
 
-   if(!booking){
-    return res.status(500).json({message:"Unable to create booking"});
-   }
+  if(!booking){
+  return res.status(500).json({message:"Unable to create booking"});
+  }
 
-   return res.status(201).json({ booking })
+  return res.status(201).json({ booking })
 
 }
 
@@ -240,22 +233,14 @@ export const deleteBooking = async (req, res, next)=>{
   let id = req.params.id
   let booking;
   try {
-
     booking = await Booking.findByIdAndDelete(id).populate("user movie")
-    //console.log(booking);
+    console.log(booking);
 
     const session = await mongoose.startSession();
     session.startTransaction();
-    //const newData =[]
-   // const dum = await booking.user.bookings.filter((ele)=> ele.equals(booking._id) );
-    //const dum1 = await booking.movie.bookings.filter((ele)=> ele.equals(booking._id) );
-   // console.log(dum)
-    //console.log(dum1)
-  //  newData.push(dum)
-    //booking.user.bookings = newData;
-//await User.findById()
-     await booking.user.bookings.pull(booking);
-     await booking.movie.bookings.pull(booking);
+
+    await booking.user.bookings.pull(booking);
+    await booking.movie.bookings.pull(booking);
     await booking.user.save({session});
     await booking.movie.save({ session })
 

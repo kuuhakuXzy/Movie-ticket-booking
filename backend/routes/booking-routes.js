@@ -14,7 +14,7 @@ import {
 const router = express.Router();
 
 // Create a new booking
-router.post('/', verifyUser, createBooking);
+router.post('/new-booking', verifyUser, createBooking);
 
 // Get booking by ID
 router.get('/:id', verifyUser, getBookingById);

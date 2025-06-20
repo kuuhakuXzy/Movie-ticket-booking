@@ -7,21 +7,22 @@ dotenv.config();
 
 export const createMovie = async (req, res) => {
   try {
-    const authHeader = req.headers.authorization;
-
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      return res.status(401).json({ message: "Token not found or invalid format" });
+    const extractedToken = req.headers.authorization.split(' ')[1];
+    
+    if (!extractedToken && extractedToken.trim() === "") {
+        return res.status(404).json({ message: "Token Not Found" })
     }
-
-    const extractedToken = authHeader.split(" ")[1];
 
     let adminId;
-    try {
-      const decrypted = jwt.verify(extractedToken, process.env.SECRET_KEY);
+    jwt.verify (extractedToken, process.env.JWT_SECRET, (err, decrypted) => {
+    if (err){
+      return res.status(400).json({message: `${err.message}`})
+    } else{
       adminId = decrypted.id;
-    } catch (err) {
-      return res.status(401).json({ message: "Invalid token", error: err.message });
+      return;
     }
+  });
+    
 
     const { id, title, description, releaseDate, image, wallpaper, rating, duration, genres, nowShowing } = req.body;
 
@@ -29,7 +30,7 @@ export const createMovie = async (req, res) => {
       return res.status(400).json({ message: "Image and wallpaper links are required" });
     }
 
-    const formattedDate = new Date(releaseDate).toLocaleDateString('en-GB').replace(/\//g, '-');
+    const formattedDate = new Date(releaseDate)
 
     const session = await mongoose.startSession();
     let movie;
@@ -73,26 +74,62 @@ export const createMovie = async (req, res) => {
     return res.status(201).json({ movie });
 
   } catch (err) {
+    console.error("Unhandled error in createMovie:", err);
     return res.status(500).json({ message: "Internal server error", error: err.message });
   }
 };
 
-export const getAllMovies = async (req, res, next) => {
+export const toggleNowShowing = async(req, res, next) => {
+  const id = req.params.id;
+  const { isNowShowing } = req.body;
+
+  let movie;
   try {
-    const movies = await Movie.find();
-    return res.status(200).json({ movies });
+    movie = await Movie.findById(id);
+    if (!movie) {
+      return res.status(404).json({ message: "Movie not found" });
+    }
+
+    if (isNowShowing) {
+      const nowShowing = new NowShowing(movie.toObject());
+      await nowShowing.save();
+      await ComingSoon.findOneAndDelete({ _id: id });
+    } else {
+      const comingSoon = new ComingSoon(movie.toObject());
+      await comingSoon.save();
+      await NowShowing.findOneAndDelete({ _id: id });
+    }
+
+    movie.isNowShowing = isNowShowing;
+    await movie.save();
   } catch (error) {
-    return res.status(500).json({
-      message: "Error fetching movies",
-      error: error.message,
-    });
+    return res.status(500).json({ message: "Error toggling movie status", error: error.message });
+  }
+
+  return res.status(200).json({ movie });
+}
+
+export const getAllMovies = async (req, res) => {
+  try {
+    const { nowShowing } = req.query;
+
+    let filter = {};
+    if (nowShowing === "true") {
+      filter.nowShowing = true;
+    } else if (nowShowing === "false") {
+      filter.nowShowing = false;
+    }
+
+    const movies = await Movie.find(filter);
+    res.status(200).json({ movies });
+  } catch (error) {
+    console.error("Error fetching movies:", error);
+    res.status(500).json({ message: "Error fetching movies", error: error.message });
   }
 };
 
 
-export const getMovieById = async(req, res, next)=>{
-  
-  
+export const getMovieById = async(req, res, next) => {
   let movie;
   try {
     // First try to find by numeric id
@@ -159,37 +196,7 @@ export const deleteMovie = async(req, res, next) => {
   return res.status(200).json({ message: "Movie deleted successfully" });
 }
 
-export const toggleNowShowing = async(req, res, next) => {
-  const id = req.params.id;
-  const { isNowShowing } = req.body;
-
-  let movie;
-  try {
-    movie = await Movie.findById(id);
-    if (!movie) {
-      return res.status(404).json({ message: "Movie not found" });
-    }
-
-    if (isNowShowing) {
-      const nowShowing = new NowShowing(movie.toObject());
-      await nowShowing.save();
-      await ComingSoon.findOneAndDelete({ _id: id });
-    } else {
-      const comingSoon = new ComingSoon(movie.toObject());
-      await comingSoon.save();
-      await NowShowing.findOneAndDelete({ _id: id });
-    }
-
-    movie.isNowShowing = isNowShowing;
-    await movie.save();
-  } catch (error) {
-    return res.status(500).json({ message: "Error toggling movie status", error: error.message });
-  }
-
-  return res.status(200).json({ movie });
-}
-
-export const getNowShowingMovies = async(req, res, next)=>{
+export const getNowShowingMovies = async(req, res, next) => {
   let movies;
   try {
     movies = await NowShowing.find();
@@ -202,14 +209,14 @@ export const getNowShowingMovies = async(req, res, next)=>{
   return res.status(200).json({movies})
 }
 
-export const getComingSoonMovies = async(req, res, next)=>{
+export const getComingSoonMovies = async(req, res, next) => {
   let movies;
   try {
     movies = await ComingSoon.find();
   } catch (error) {
     return res.status(500).json({ message: "Error fetching coming soon movies", error: error.message });
   }
-  if(!movies){
+  if (!movies) {
     return res.status(404).json({message:"No movies found"})
   }
   return res.status(200).json({movies})
