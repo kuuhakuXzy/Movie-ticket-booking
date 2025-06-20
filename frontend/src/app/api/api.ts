@@ -1,5 +1,39 @@
 const BASE_URL = 'http://localhost:5000';
 
+export type BookingPayload = {
+    showtimeId: string;
+    seatIds: string[];
+    foodDrinks: {
+        item: string;
+        quantity: number;
+    }[];
+    customerInfo: {
+        name: string;
+        email: string;
+        phone: string;
+    };
+    paymentMethod: "cash" | "credit_card" | "momo" | "zalo";
+    };
+
+export type BookingResponse = {
+    _id: string;
+    user: string;
+    showtime: string;
+    seats: { seatNumber: string; price: number }[];
+    foodDrinks: { item: string; quantity: number; price: number }[];
+    customerInfo: {
+        name: string;
+        email: string;
+        phone: string;
+    };
+    totalAmount: number;
+    paymentMethod: string;
+    bookingReference: string;
+    status: string;
+    paymentStatus: string;
+    createdAt: string;
+};
+
 export const fetchMovies = async () => {
     const res = await fetch(`${BASE_URL}/movie/all-movies`);
 
@@ -55,4 +89,28 @@ export const userLogin = async (payload: LoginPayload) => {
 
     const data = await res.json();
     return data;
+};
+
+export const createBooking = async (
+    bookingData: BookingPayload
+): Promise<BookingResponse> => {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("Unauthorized: No token found");
+
+    const res = await fetch(`${BASE_URL}/booking/create`, {
+        method: "POST",
+        headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(bookingData),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+        throw new Error(data.message || "Failed to create booking");
+    }
+
+    return data.booking;
 };
