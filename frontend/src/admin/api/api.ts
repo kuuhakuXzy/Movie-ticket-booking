@@ -27,9 +27,6 @@ type MovieResponse = {
   nowShowing: boolean;
 };
 
-
-
-
 export interface AdminLoginResponse {
   message: string;
   token: string;
@@ -57,6 +54,16 @@ type FoodDrinkResponse = {
   isAvailable: boolean;
 };
 
+export interface ShowtimeData {
+  movieId: string;
+  cinema: string;
+  hall: "Hall 1" | "Hall 2" | "Hall 3";
+  date: string;         // format: YYYY-MM-DD
+  startTime: string;    // format: HH:mm
+  endTime: string;      // format: HH:mm
+  price: number;
+}
+
 export const adminLogin = async (
   email: string,
   password: string
@@ -78,7 +85,6 @@ export const adminLogin = async (
 
   return data as AdminLoginResponse;
 };
-
 
 export const createMovie = async (movie: MoviePayload): Promise<MovieResponse> => {
   const token = localStorage.getItem('token');
@@ -119,5 +125,24 @@ export const createFoodDrink = async (foodDrink: FoodDrinkPayload): Promise<Food
   console.log('Added food/drink:', data.foodDrink);
 
   return data.foodDrink as FoodDrinkResponse;
+};
+
+export const createShowtime = async (showtimeData: ShowtimeData, token: string) => {
+  const response = await fetch(`${BASE_URL}/showtime/addShowtime`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify(showtimeData),
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || "Failed to create showtime");
+  }
+
+  const data = await response.json();
+  return data.showtime;
 };
 

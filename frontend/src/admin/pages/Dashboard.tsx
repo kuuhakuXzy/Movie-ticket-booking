@@ -7,9 +7,10 @@ import {
     TabsTrigger
 } from '@/components/ui/tabs';
 
-import { AddMovie } from '../elements/AddMovie';
-import { UserDropdown } from '../elements/UserDropdown';
 import { AddFoodDrink } from '../elements/AddFoodDrink';
+import { AddMovie } from '../elements/AddMovie';
+import { AddShowtime } from '../elements/AddShowtime';
+import { UserDropdown } from '../elements/UserDropdown';
 
 export default function DashboardPage() {
     return (
@@ -29,7 +30,7 @@ export default function DashboardPage() {
 
                 <AddMovie />
                 <AddFoodDrink />
-                
+                <AddShowtime />
 
             </Tabs>
         </div>

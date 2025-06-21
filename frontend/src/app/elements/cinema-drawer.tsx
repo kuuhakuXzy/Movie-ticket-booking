@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/drawer";
 import { CheckCircle2, CirclePlus, X } from "lucide-react";
 import { useState } from "react";
-import SchedulerContainer from "./schedule-container";
+import { Calendar } from "./calendar";
 
 const STATES = ["WCT", "ACT", "NSW", "QLD", "SAT", "VIC", "EDG", "HLE", "DRX"];
 const CINEMAS = [
@@ -114,7 +114,7 @@ export default function CinemaDrawer() {
             </Drawer>
             {showScheduler && (
                 <div className="p-2">
-                    <SchedulerContainer selectedCinemas={selectedCinemas} />
+                    <Calendar />
                 </div>
             )}
         </>

@@ -1,33 +1,28 @@
-import Showtime from "../models/Showtime.js";
 import Movie from "../models/Movie.js";
 import Seat from "../models/Seat.js";
+import Showtime from "../models/Showtime.js";
 
 export const createShowtime = async (req, res) => {
   try {
     const { movieId, cinema, hall, date, startTime, endTime, price } = req.body;
 
-    // Verify movie exists
     const movie = await Movie.findById(movieId);
     if (!movie) {
       return res.status(404).json({ message: "Movie not found" });
     }
 
-    const showtime = new Showtime({
-      movie: movieId,
-      cinema,
-      hall,
-      date,
-      startTime,
-      endTime,
-      price
-    });
-
+    const showtime = new Showtime({ movie: movieId, cinema, hall, date, startTime, endTime, price });
     await showtime.save();
+
+    console.log("Showtime created:", movie, cinema, hall, date, startTime, endTime, price);
+
     res.status(201).json({ showtime });
   } catch (error) {
+    console.error("Create Showtime Error:", error);
     res.status(500).json({ message: "Error creating showtime", error: error.message });
   }
 };
+
 
 export const getAllShowtimes = async (req, res) => {
   try {
