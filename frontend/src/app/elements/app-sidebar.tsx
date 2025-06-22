@@ -7,7 +7,7 @@ import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarMenu
 const items = [
   {
     title: "Home",
-    url: "#",
+    url: "/",
     icon: Home,
   },
   {
@@ -27,7 +27,7 @@ const items = [
   },
   {
     title: "Booking Management",
-    url: "#",
+    url: "/reservations",
     icon: Settings,
   },
 ]

@@ -97,7 +97,7 @@ export const createBooking = async (
     const token = localStorage.getItem("token");
     if (!token) throw new Error("Unauthorized: No token found");
 
-    const res = await fetch(`${BASE_URL}/booking/create`, {
+    const res = await fetch(`${BASE_URL}/booking/createBooking`, {
         method: "POST",
         headers: {
         "Content-Type": "application/json",
@@ -115,12 +115,12 @@ export const createBooking = async (
     return data.booking;
 };
 
-export const fetchShowtimes = async () => {
-    const res = await fetch(`${BASE_URL}/showtime/all-showtime`);
+export const fetchShowtimesbyId = async (movieId: string) => {
+    const res = await fetch(`${BASE_URL}/showtime/${movieId}`);
 
     if (!res.ok) {
         throw new Error('Failed to fetch movies');
     }
     const data = await res.json();
-    return data.movies;
+    return data.showtimes;
 }

@@ -15,7 +15,7 @@ const router = express.Router();
 
 // Public routes
 router.get('/all-showtime', getAllShowtimes);
-router.get('/movie/:movieId', getShowtimesByMovie);
+router.get('/:movieId', getShowtimesByMovie);
 router.get('/:id', getShowtimeById);
 router.get('/:id/seats', getAvailableSeats);
 

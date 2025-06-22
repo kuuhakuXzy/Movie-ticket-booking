@@ -14,7 +14,7 @@ export function UserDropdown() {
     const handleLogout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('email');
-        navigate('/login/admin');
+        navigate('/admin/login');
     };
     return (
         <>

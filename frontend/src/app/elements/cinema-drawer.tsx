@@ -8,8 +8,22 @@ import {
     DrawerTrigger,
 } from "@/components/ui/drawer";
 import { CheckCircle2, CirclePlus, X } from "lucide-react";
-import { useState } from "react";
-import { Calendar } from "./calendar";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { fetchNowShowingMovies } from "../api/api";
+
+type Movie = {
+    _id: string;
+    id: number;
+    title: string;
+    wallpaper: string;
+    image: string;
+    releaseDate: string;
+    rating: string;
+    duration: string;
+    genres: string;
+    description: string;
+};
 
 const STATES = ["WCT", "ACT", "NSW", "QLD", "SAT", "VIC", "EDG", "HLE", "DRX"];
 const CINEMAS = [
@@ -22,7 +36,17 @@ const CINEMAS = [
 export default function CinemaDrawer() {
     const [selectedState, setSelectedState] = useState("NSW");
     const [selectedCinemas, setSelectedCinemas] = useState<string[]>([]);
-    const [showScheduler, setShowScheduler] = useState(false);
+    const [movie, setMovie] = useState<Movie | null>(null);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        fetchNowShowingMovies()
+            .then((movies: Movie[]) => {
+                const matched = movies.find((m: Movie) => m.title);
+                setMovie(matched || null);
+            })
+            .catch(console.error);
+    }, []);
 
     const toggleCinema = (cinema: string) => {
         setSelectedCinemas((prev) =>
@@ -33,6 +57,19 @@ export default function CinemaDrawer() {
     };
 
     const clearSelection = () => setSelectedCinemas([]);
+
+    const handleSaveAndBrowse = () => {
+        if (selectedCinemas.length === 0) {
+            alert("Please select at least one cinema.");
+            return;
+        }
+
+        if (!movie?._id) {
+            alert("Movie ID not available.");
+            return;
+        }
+        navigate(`/showtime/${movie._id}`);
+    };
 
     return (
         <>
@@ -93,13 +130,7 @@ export default function CinemaDrawer() {
                     <div className="mt-6">
                         <Button
                             className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold"
-                            onClick={() => {
-                                if (selectedCinemas.length === 0) {
-                                    alert("Please select at least one cinema.");
-                                    return;
-                                }
-                                setShowScheduler(true);
-                            }}
+                            onClick={handleSaveAndBrowse}
                         >
                             SAVE & BROWSE
                         </Button>
@@ -112,11 +143,6 @@ export default function CinemaDrawer() {
                     </div>
                 </DrawerContent>
             </Drawer>
-            {showScheduler && (
-                <div className="p-2">
-                    <Calendar />
-                </div>
-            )}
         </>
     );
 }

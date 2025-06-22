@@ -16,6 +16,7 @@ import './index.css'
 // import admin page
 import DashboardPage from './admin/pages/Dashboard.tsx'
 import LoginAdminPage from './admin/pages/LoginAdminPage.tsx'
+import { Calendar } from './app/elements/calendar.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -29,6 +30,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/movielist" element={<MovieListPage />} />
         <Route path="/fooddrinks" element={<FoodDrinksPage />} />
         <Route path="/newsupdates" element={<NewsUpdatesPage />} />
+        <Route path="/showtime/:movieId" element={<Calendar />} />
 
         <Route path="/dashboard/admin" element={<DashboardPage />} />
         <Route path="/admin/login" element={<LoginAdminPage />} />
