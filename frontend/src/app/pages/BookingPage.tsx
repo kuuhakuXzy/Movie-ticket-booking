@@ -46,7 +46,7 @@ export default function BookingPage() {
 
             <div className="relative w-full">
                 <img
-                src={movie.wallpaper}
+                src={convertGoogleDriveUrl(movie.wallpaper)}
                 alt="Wallpaper"
                 className="w-full h-[400px] object-cover"
                 />
