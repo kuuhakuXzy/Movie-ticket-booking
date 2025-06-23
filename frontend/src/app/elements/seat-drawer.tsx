@@ -9,7 +9,7 @@ import {
 import { convertGoogleDriveUrl } from "@/lib/utils";
 import { Separator } from "@radix-ui/react-separator";
 import { Armchair, X } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SeatLegend from "./seat-legend";
 
@@ -61,9 +61,14 @@ export default function SeatDrawer({ isOpen, onClose, showtime }: SeatDrawerProp
   };
 
   const handleProceed = () => {
-    const seatsParam = encodeURIComponent(JSON.stringify(Array.from(selectedSeats)));
-    const priceParam = seatPrice;
-    navigate(`/checkout?seats=${seatsParam}&price=${priceParam}`);
+    if (selectedSeats.size === 0) {
+      alert("Please select at least one seat.");
+      return;
+    }
+
+    navigate(`/checkout/${showtime._id}`, {
+      state: { showtime, seats: Array.from(selectedSeats) },
+    });
   };
 
   return (

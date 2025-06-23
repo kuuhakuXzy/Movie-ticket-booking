@@ -124,3 +124,13 @@ export const fetchShowtimesbyId = async (movieId: string) => {
     const data = await res.json();
     return data.showtimes;
 }
+
+export const fetchAllFoodDrinks = async () => {
+    const res = await fetch(`${BASE_URL}/food-drink/all`);
+
+    if (!res.ok) {
+        throw new Error('Failed to fetch food and drinks');
+    }
+    const data = await res.json();
+    return data.foodDrink;
+}
