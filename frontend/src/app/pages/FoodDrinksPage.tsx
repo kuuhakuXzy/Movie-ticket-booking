@@ -42,7 +42,7 @@ export default function FoodDrinksPage() {
                 className="bg-gray-800 rounded-lg overflow-hidden shadow-lg"
               >
                 <img
-                  src={`http://localhost:5000/static/${item.image}`}
+                  src={`${import.meta.env.VITE_API_URL}/static/${item.image}`}
                   alt={item.name}
                   className="w-[500px] h-[300px] object-cover"
                 />
