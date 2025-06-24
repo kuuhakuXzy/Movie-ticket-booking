@@ -16,14 +16,14 @@ import './index.css'
 // import admin page
 import DashboardPage from './admin/pages/Dashboard.tsx'
 import LoginAdminPage from './admin/pages/LoginAdminPage.tsx'
-import { Calendar } from './app/elements/calendar.tsx'
 import { BeverageOrder } from './app/elements/beverage-order.tsx'
+import { Calendar } from './app/elements/calendar.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<App />} />
+        <Route path="/:id" element={<App />} />
         <Route path="/user/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/booking/:id" element={<BookingPage />} />
@@ -32,7 +32,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/fooddrinks" element={<FoodDrinksPage />} />
         <Route path="/newsupdates" element={<NewsUpdatesPage />} />
         <Route path="/showtime/:movieId" element={<Calendar />} />
-        <Route path="/food-drink" element={<BeverageOrder onTotalChange={() => {}} />} />
+        <Route path="/food-drink" element={<BeverageOrder onTotalChange={() => {}} onItemsChange={() => {}} />} />
 
         <Route path="/dashboard/admin" element={<DashboardPage />} />
         <Route path="/admin/login" element={<LoginAdminPage />} />

@@ -63,13 +63,12 @@ export const verifyUser = async (req, res, next) => {
       return res.status(401).json({ message: "No token provided" });
     }
 
-    if (!process.env.JWT_SECRET) {
-      logger.error('JWT_SECRET is not defined in environment variables');
-      return res.status(500).json({ message: "Server configuration error" });
-    }
-
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded;
+    req.user = {
+      id: decoded.id || decoded._id,
+    };
+
+    console.log("Authenticated user:", req.user);
     next();
   } catch (error) {
     logger.error(`Authentication error: ${error.message}`);

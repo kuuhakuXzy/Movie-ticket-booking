@@ -67,7 +67,9 @@ export default function SeatDrawer({ isOpen, onClose, showtime }: SeatDrawerProp
     }
 
     navigate(`/checkout/${showtime._id}`, {
-      state: { showtime, seats: Array.from(selectedSeats) },
+      state: { showtime,
+        seats: Array.from(selectedSeats),
+      },
     });
   };
 

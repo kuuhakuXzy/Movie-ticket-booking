@@ -12,7 +12,7 @@ export function UserDropdown() {
     }, []);
 
     const handleLogout = () => {
-        localStorage.removeItem('token');
+        localStorage.removeItem('adminToken');
         localStorage.removeItem('email');
         navigate('/admin/login');
     };

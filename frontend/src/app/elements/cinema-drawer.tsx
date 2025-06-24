@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/drawer";
 import { CheckCircle2, CirclePlus, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { fetchNowShowingMovies } from "../api/api";
 
 type Movie = {
@@ -37,16 +37,17 @@ export default function CinemaDrawer() {
     const [selectedState, setSelectedState] = useState("NSW");
     const [selectedCinemas, setSelectedCinemas] = useState<string[]>([]);
     const [movie, setMovie] = useState<Movie | null>(null);
+    const { id } = useParams();
     const navigate = useNavigate();
 
     useEffect(() => {
         fetchNowShowingMovies()
             .then((movies: Movie[]) => {
-                const matched = movies.find((m: Movie) => m.title);
+                const matched: Movie | undefined = movies.find((m: Movie) => String(m._id) === id);
                 setMovie(matched || null);
             })
             .catch(console.error);
-    }, []);
+    }, [id]);
 
     const toggleCinema = (cinema: string) => {
         setSelectedCinemas((prev) =>

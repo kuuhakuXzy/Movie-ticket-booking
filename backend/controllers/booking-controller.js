@@ -9,16 +9,13 @@ import User from "../models/User.js";
 
 export const createBooking = async (req, res) => {
   try {
-    const {
-      showtimeId,
-      seatIds,
-      foodDrinks,
-      customerInfo,
-      paymentMethod
-    } = req.body;
+    const {showtimeId, seats, foodDrinks, customerInfo, paymentMethod} = req.body;
 
     // Get user from auth token
     const userId = req.user.id;
+    if (!userId) {
+      return res.status(401).json({ message: "User not authenticated" });
+    }
 
     // Verify showtime exists
     const showtime = await Showtime.findById(showtimeId);
@@ -27,43 +24,38 @@ export const createBooking = async (req, res) => {
     }
 
     // Verify seats are available
-    const seats = await Seat.find({ _id: { $in: seatIds } });
-    if (seats.length !== seatIds.length) {
-      return res.status(400).json({ message: "Some seats are not available" });
-    }
+    // const seats = await Seat.find({ _id: { $in: seatIds } });
+    // if (seats.length !== seatIds.length) {
+    //   return res.status(400).json({ message: "Some seats are not available" });
+    // }
 
     // Calculate total amount
     let totalAmount = 0;
-    
-    // Add seat prices
-    const seatDetails = seats.map(seat => ({
-      seatNumber: seat.seatNumber,
-      price: seat.price
-    }));
-    
-    seatDetails.forEach(seat => {
+
+    seats.forEach(seat => {
       totalAmount += seat.price;
     });
+    
 
     // Add food and drinks prices
-    let foodDrinkDetails = [];
-    if (foodDrinks && foodDrinks.length > 0) {
-      const foodDrinkItems = await FoodDrink.find({
-        _id: { $in: foodDrinks.map(item => item.item) }
-      });
+    // let foodDrinkDetails = [];
+    // if (foodDrinks && foodDrinks.length > 0) {
+    //   const foodDrinkItems = await FoodDrink.find({
+    //     _id: { $in: foodDrinks.map(item => item.item) }
+    //   });
 
-      foodDrinkDetails = foodDrinks.map(order => {
-        const item = foodDrinkItems.find(fd => fd._id.toString() === order.item);
-        if (item) {
-          totalAmount += item.price * order.quantity;
-          return {
-            item: item._id,
-            quantity: order.quantity,
-            price: item.price
-          };
-        }
-      }).filter(Boolean);
-    }
+    //   foodDrinkDetails = foodDrinks.map(order => {
+    //     const item = foodDrinkItems.find(fd => fd._id.toString() === order.item);
+    //     if (item) {
+    //       totalAmount += item.price * order.quantity;
+    //       return {
+    //         item: item._id,
+    //         quantity: order.quantity,
+    //         price: item.price
+    //       };
+    //     }
+    //   }).filter(Boolean);
+    // }
 
     // Generate unique booking reference
     const bookingReference = `BK${uuidv4().slice(0, 8).toUpperCase()}`;
@@ -72,23 +64,23 @@ export const createBooking = async (req, res) => {
     const booking = new Booking({
       user: userId,
       showtime: showtimeId,
-      seats: seatDetails,
-      foodDrinks: foodDrinkDetails,
+      seats,
+      foodDrinks,
       customerInfo,
       totalAmount,
       paymentMethod,
       bookingReference,
       status: 'pending',
-      paymentStatus: 'pending'
+      paymentStatus: 'pending',
     });
 
     await booking.save();
 
-    // Update seat status
-    await Seat.updateMany(
-      { _id: { $in: seatIds } },
-      { $set: { isBooked: true } }
-    );
+    // // Update seat status
+    // await Seat.updateMany(
+    //   { _id: { $in: seatIds } },
+    //   { $set: { isBooked: true } }
+    // );
 
     res.status(201).json({ booking });
   } catch (error) {

@@ -1,20 +1,20 @@
 import express from 'express';
-import { verifyUser } from '../middleware/auth.js';
 import {
+  addFoodDrinksToBooking,
+  cancelBooking,
   createBooking,
   getBookingById,
-  getUserBookings,
-  cancelBooking,
-  updateBookingStatus,
   getBookingByReference,
-  addFoodDrinksToBooking,
-  removeFoodDrinksFromBooking
+  getUserBookings,
+  removeFoodDrinksFromBooking,
+  updateBookingStatus
 } from '../controllers/booking-controller.js';
+import { verifyUser } from '../middleware/auth.js';
 
 const router = express.Router();
 
 // Create a new booking
-router.post('/new-booking', verifyUser, createBooking);
+router.post('/createBooking', verifyUser, createBooking);
 
 // Get booking by ID
 router.get('/:id', verifyUser, getBookingById);

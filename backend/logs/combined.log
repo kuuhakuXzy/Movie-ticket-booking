@@ -317,3 +317,20 @@
 {"level":"info","message":"Database connected successfully","service":"movie-booking-api","timestamp":"2025-06-21 15:12:24"}
 {"level":"info","message":"MongoDB connected successfully","service":"movie-booking-api","timestamp":"2025-06-21 15:12:26"}
 {"level":"info","message":"Admin login successful: admin3@example.com","service":"movie-booking-api","timestamp":"2025-06-21 15:13:10"}
+{"level":"info","message":"Server started on port 5000","service":"movie-booking-api","timestamp":"2025-06-24 02:06:56"}
+{"level":"info","message":"Database connected successfully","service":"movie-booking-api","timestamp":"2025-06-24 02:06:56"}
+{"level":"info","message":"MongoDB connected successfully","service":"movie-booking-api","timestamp":"2025-06-24 02:06:58"}
+{"level":"info","message":"Server started on port 5000","service":"movie-booking-api","timestamp":"2025-06-24 02:13:40"}
+{"level":"info","message":"Database connected successfully","service":"movie-booking-api","timestamp":"2025-06-24 02:13:40"}
+{"level":"info","message":"MongoDB connected successfully","service":"movie-booking-api","timestamp":"2025-06-24 02:13:42"}
+{"level":"warn","message":"No authorization header provided","service":"movie-booking-api","timestamp":"2025-06-24 02:13:55"}
+{"level":"info","message":"Server started on port 5000","service":"movie-booking-api","timestamp":"2025-06-24 02:16:15"}
+{"level":"info","message":"Database connected successfully","service":"movie-booking-api","timestamp":"2025-06-24 02:16:15"}
+{"level":"info","message":"MongoDB connected successfully","service":"movie-booking-api","timestamp":"2025-06-24 02:16:16"}
+{"level":"warn","message":"No authorization header provided","service":"movie-booking-api","timestamp":"2025-06-24 02:18:31"}
+{"level":"info","message":"Server started on port 5000","service":"movie-booking-api","timestamp":"2025-06-24 02:18:52"}
+{"level":"info","message":"Database connected successfully","service":"movie-booking-api","timestamp":"2025-06-24 02:18:52"}
+{"level":"info","message":"MongoDB connected successfully","service":"movie-booking-api","timestamp":"2025-06-24 02:18:53"}
+{"level":"info","message":"Server started on port 5000","service":"movie-booking-api","timestamp":"2025-06-24 10:56:13"}
+{"level":"info","message":"Database connected successfully","service":"movie-booking-api","timestamp":"2025-06-24 10:56:13"}
+{"level":"info","message":"MongoDB connected successfully","service":"movie-booking-api","timestamp":"2025-06-24 10:56:15"}

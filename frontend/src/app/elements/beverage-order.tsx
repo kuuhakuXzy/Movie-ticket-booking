@@ -14,7 +14,12 @@ type FoodDrink = {
     isAvailable: boolean;
 };
 
-export const BeverageOrder = ({ onTotalChange }: { onTotalChange: (total: number) => void }) => {
+type BeverageOrderProps = {
+    onTotalChange: (total: number) => void;
+    onItemsChange: (items: { item: FoodDrink; quantity: number }[]) => void;
+};
+
+export const BeverageOrder = ({ onTotalChange, onItemsChange }: BeverageOrderProps) => {
     const [beverages, setBeverages] = useState<FoodDrink[]>([]);
     const [selectedBeverage, setSelectedBeverage] = useState<FoodDrink | null>(null);
     const [quantity, setQuantity] = useState<number>(1);
@@ -46,7 +51,8 @@ export const BeverageOrder = ({ onTotalChange }: { onTotalChange: (total: number
     useEffect(() => {
         const total = orderItems.reduce((sum, { item, quantity }) => sum + item.price * quantity, 0);
         onTotalChange(total);
-    }, [orderItems, onTotalChange]);
+        onItemsChange(orderItems);
+    }, [orderItems, onTotalChange, onItemsChange]);
 
     return (
         <div className="beverage-order">

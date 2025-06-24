@@ -20,8 +20,10 @@ export function LoginForm({
         try {
             const login = await userLogin({email, password})
                 localStorage.setItem("user", JSON.stringify(login.user));
+                localStorage.setItem("userToken", login.token);
                 alert("Login successful!")
-                navigate("/")
+                console.log("Login successful:", login.user.id);
+                navigate(`/${login.user.id}`)
             } catch (err: any) {
                 alert(err.message || "Login failed")
             }
