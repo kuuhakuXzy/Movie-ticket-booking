@@ -334,3 +334,58 @@
 {"level":"info","message":"Server started on port 5000","service":"movie-booking-api","timestamp":"2025-06-24 10:56:13"}
 {"level":"info","message":"Database connected successfully","service":"movie-booking-api","timestamp":"2025-06-24 10:56:13"}
 {"level":"info","message":"MongoDB connected successfully","service":"movie-booking-api","timestamp":"2025-06-24 10:56:15"}
+{"level":"info","message":"Server started on port 5000","service":"movie-booking-api","timestamp":"2025-06-24 13:59:36"}
+{"level":"info","message":"Database connected successfully","service":"movie-booking-api","timestamp":"2025-06-24 13:59:36"}
+{"level":"info","message":"MongoDB connected successfully","service":"movie-booking-api","timestamp":"2025-06-24 13:59:38"}
+{"level":"warn","message":"404 - /static/https://drive.google.com/file/d/1Z7ZEyZcf1ypZIsxrWo9vZ0ePIX_dshVY/view?usp=sharing - GET - ::1","service":"movie-booking-api","timestamp":"2025-06-24 14:42:12"}
+{"level":"warn","message":"404 - /static/https://drive.google.com/file/d/12etlrE2f1i9CjxO2gfqC1F_shHZsAuvY/view?usp=sharing - GET - ::1","service":"movie-booking-api","timestamp":"2025-06-24 14:42:12"}
+{"level":"warn","message":"404 - /static/https://drive.google.com/file/d/10yA0IPIdKeUm6LVkGv5bfLY6VievavDV/view?usp=sharing - GET - ::1","service":"movie-booking-api","timestamp":"2025-06-24 14:42:12"}
+{"level":"warn","message":"404 - /static/https://drive.google.com/file/d/1DjTRau7DRxqfaZPdcgDjLbNF6psL-tPm/view?usp=sharing - GET - ::1","service":"movie-booking-api","timestamp":"2025-06-24 14:42:12"}
+{"level":"info","message":"Server started on port 5000","service":"movie-booking-api","timestamp":"2025-06-24 14:44:56"}
+{"level":"info","message":"Database connected successfully","service":"movie-booking-api","timestamp":"2025-06-24 14:44:56"}
+{"level":"info","message":"MongoDB connected successfully","service":"movie-booking-api","timestamp":"2025-06-24 14:44:58"}
+{"level":"info","message":"Server started on port 5000","service":"movie-booking-api","timestamp":"2025-06-24 14:51:21"}
+{"level":"info","message":"Database connected successfully","service":"movie-booking-api","timestamp":"2025-06-24 14:51:21"}
+{"level":"info","message":"MongoDB connected successfully","service":"movie-booking-api","timestamp":"2025-06-24 14:51:23"}
+{"level":"warn","message":"Admin login failed: Invalid email nguyen@example.com","service":"movie-booking-api","timestamp":"2025-06-24 15:06:28"}
+{"level":"warn","message":"Admin login failed: Invalid email nguyen@example.com","service":"movie-booking-api","timestamp":"2025-06-24 15:06:29"}
+{"level":"info","message":"Admin login successful: admin3@example.com","service":"movie-booking-api","timestamp":"2025-06-24 15:06:37"}
+{"level":"warn","message":"No authorization header provided","service":"movie-booking-api","timestamp":"2025-06-24 15:34:35"}
+{"level":"info","message":"Server started on port 5000","service":"movie-booking-api","timestamp":"2025-06-24 15:54:08"}
+{"level":"info","message":"Database connected successfully","service":"movie-booking-api","timestamp":"2025-06-24 15:54:08"}
+{"level":"info","message":"MongoDB connected successfully","service":"movie-booking-api","timestamp":"2025-06-24 15:54:09"}
+{"level":"warn","message":"No authorization header provided","service":"movie-booking-api","timestamp":"2025-06-24 16:02:16"}
+{"level":"warn","message":"No authorization header provided","service":"movie-booking-api","timestamp":"2025-06-24 16:02:16"}
+{"level":"warn","message":"No authorization header provided","service":"movie-booking-api","timestamp":"2025-06-24 16:02:35"}
+{"level":"warn","message":"No authorization header provided","service":"movie-booking-api","timestamp":"2025-06-24 16:02:35"}
+{"level":"warn","message":"No authorization header provided","service":"movie-booking-api","timestamp":"2025-06-24 16:02:40"}
+{"level":"warn","message":"404 - /favicon.ico - GET - ::1","service":"movie-booking-api","timestamp":"2025-06-24 16:02:40"}
+{"level":"info","message":"Server started on port 5000","service":"movie-booking-api","timestamp":"2025-06-24 20:28:58"}
+{"level":"info","message":"Database connected successfully","service":"movie-booking-api","timestamp":"2025-06-24 20:28:58"}
+{"level":"info","message":"MongoDB connected successfully","service":"movie-booking-api","timestamp":"2025-06-24 20:29:00"}
+{"level":"warn","message":"No authorization header provided","service":"movie-booking-api","timestamp":"2025-06-24 20:58:20"}
+{"level":"warn","message":"No authorization header provided","service":"movie-booking-api","timestamp":"2025-06-24 20:58:20"}
+{"level":"info","message":"Server started on port 5000","service":"movie-booking-api","timestamp":"2025-06-24 21:49:37"}
+{"level":"info","message":"Database connected successfully","service":"movie-booking-api","timestamp":"2025-06-24 21:49:37"}
+{"level":"info","message":"MongoDB connected successfully","service":"movie-booking-api","timestamp":"2025-06-24 21:49:39"}
+{"level":"warn","message":"Admin login failed: Invalid email nguyen@example.com","service":"movie-booking-api","timestamp":"2025-06-24 21:52:03"}
+{"level":"info","message":"Admin login successful: admin3@example.com","service":"movie-booking-api","timestamp":"2025-06-24 21:52:20"}
+{"level":"warn","message":"No authorization header provided","service":"movie-booking-api","timestamp":"2025-06-24 21:52:58"}
+{"level":"warn","message":"No authorization header provided","service":"movie-booking-api","timestamp":"2025-06-24 21:52:58"}
+{"level":"warn","message":"No authorization header provided","service":"movie-booking-api","timestamp":"2025-06-24 21:53:15"}
+{"level":"warn","message":"No authorization header provided","service":"movie-booking-api","timestamp":"2025-06-24 21:53:15"}
+{"level":"warn","message":"No authorization header provided","service":"movie-booking-api","timestamp":"2025-06-24 21:54:10"}
+{"level":"warn","message":"No authorization header provided","service":"movie-booking-api","timestamp":"2025-06-24 21:54:11"}
+{"level":"warn","message":"No authorization header provided","service":"movie-booking-api","timestamp":"2025-06-24 21:57:44"}
+{"level":"warn","message":"No authorization header provided","service":"movie-booking-api","timestamp":"2025-06-24 21:57:44"}
+{"level":"warn","message":"No authorization header provided","service":"movie-booking-api","timestamp":"2025-06-24 21:57:47"}
+{"level":"warn","message":"404 - /favicon.ico - GET - ::1","service":"movie-booking-api","timestamp":"2025-06-24 21:57:47"}
+{"level":"info","message":"Server started on port 5000","service":"movie-booking-api","timestamp":"2025-06-24 21:59:09"}
+{"level":"info","message":"Database connected successfully","service":"movie-booking-api","timestamp":"2025-06-24 21:59:09"}
+{"level":"info","message":"MongoDB connected successfully","service":"movie-booking-api","timestamp":"2025-06-24 21:59:13"}
+{"level":"warn","message":"No authorization header provided","service":"movie-booking-api","timestamp":"2025-06-24 22:00:29"}
+{"level":"warn","message":"No authorization header provided","service":"movie-booking-api","timestamp":"2025-06-24 22:00:29"}
+{"level":"warn","message":"No authorization header provided","service":"movie-booking-api","timestamp":"2025-06-24 22:00:40"}
+{"level":"warn","message":"No authorization header provided","service":"movie-booking-api","timestamp":"2025-06-24 22:02:05"}
+{"level":"warn","message":"No authorization header provided","service":"movie-booking-api","timestamp":"2025-06-24 22:02:05"}
+{"level":"warn","message":"No authorization header provided","service":"movie-booking-api","timestamp":"2025-06-24 22:02:09"}

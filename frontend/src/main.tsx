@@ -18,6 +18,8 @@ import DashboardPage from './admin/pages/Dashboard.tsx'
 import LoginAdminPage from './admin/pages/LoginAdminPage.tsx'
 import { BeverageOrder } from './app/elements/beverage-order.tsx'
 import { Calendar } from './app/elements/calendar.tsx'
+import FAQPage from './app/pages/FAQPage.tsx'
+import ReservationPage from './app/pages/ReservationPage.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -33,6 +35,8 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/newsupdates" element={<NewsUpdatesPage />} />
         <Route path="/showtime/:movieId" element={<Calendar />} />
         <Route path="/food-drink" element={<BeverageOrder onTotalChange={() => {}} onItemsChange={() => {}} />} />
+        <Route path="/faq" element={<FAQPage />} />
+        <Route path="/reservations" element={<ReservationPage />} />
 
         <Route path="/dashboard/admin" element={<DashboardPage />} />
         <Route path="/admin/login" element={<LoginAdminPage />} />

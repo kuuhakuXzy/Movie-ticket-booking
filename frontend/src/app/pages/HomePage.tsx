@@ -9,6 +9,7 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 
 import { Footer } from "@/app/elements/footer";
 import { Header } from "@/app/elements/header";
+
 export default function HomePage() {
     return (
         <div className="bg-jet-black min-h-screen text-white">

@@ -117,7 +117,7 @@ export default function CheckoutPage() {
       const response = await createBooking(payload);
 
       alert("Booking successful!");
-      navigate("/confirmation", { state: { booking: response } });
+      navigate("/reservations", { state: { booking: response } });
     } catch (error) {
       alert("Booking failed. Please try again.");
       console.error("Booking error:", error);

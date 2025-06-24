@@ -145,3 +145,23 @@ export const fetchAllFoodDrinks = async () => {
     const data = await res.json();
     return data.foodDrink;
 }
+
+export const fetchUserBooking = async (userId: string) => {
+    const token = localStorage.getItem("userToken");
+    if (!token) throw new Error("Unauthorized: No token found");
+
+    const res = await fetch(`${BASE_URL}/booking/user/${userId}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+    });
+
+    if (!res.ok) {
+        throw new Error("Failed to fetch user bookings");
+    }
+
+    const data = await res.json();
+    return data.bookings;
+};

@@ -5,6 +5,7 @@ import { TabsContent } from '@/components/ui/tabs';
 import { Clapperboard } from 'lucide-react';
 import { useState } from 'react';
 import { createMovie } from '../api/api';
+import { convertGoogleDriveUrl } from '@/lib/utils';
 
 export function AddMovie() {
     type Movie = {
@@ -129,7 +130,7 @@ export function AddMovie() {
                     <CardTitle className="text-base font-semibold">{movie.title}</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2">
-                    <img src={movie.image} alt="Movie Poster" className="w-full h-48 object-cover rounded" />
+                    <img src={convertGoogleDriveUrl(movie.image)} alt="Movie Poster" className="w-full h-48 object-cover rounded" />
                     <p className="text-xs text-muted-foreground">ID: {movie.id}</p>
                     <p className="text-xs text-muted-foreground">{new Date(movie.releaseDate).toLocaleDateString()}</p>
                     <p className="text-xs text-muted-foreground">{movie.description}</p>

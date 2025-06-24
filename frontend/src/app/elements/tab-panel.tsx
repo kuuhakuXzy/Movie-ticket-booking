@@ -97,22 +97,22 @@ export default function TabsPanel() {
                 {comingSoonMovies.map((movie, index) => (
                     <div key={index} className="flex items-center gap-4 mb-10">
                         <img
-                            src={movie.image}
+                            src={convertGoogleDriveUrl(movie.image)}
                             alt={`${movie.title} Poster`}
                             className="w-32 h-48 rounded-lg object-cover cursor-pointer"
                         />
                         <div>
-                        <a href="/" className="group">
+                        <div className="group">
                             <h1 className="text-2xl font-poppins pb-3 group-hover:underline">
                             {movie.title}
                             </h1>
-                        </a>
+                        </div>
                         <div className="flex items-center gap-2 font-poppins font-semibold">
                             <p className="text-sm text-gray-500">{movie.rating}</p>
                             <Separator orientation="vertical" className="h-4 w-px bg-gray-500" />
                             <p className="text-sm text-gray-500">{movie.duration}</p>
                             <Separator orientation="vertical" className="h-4 w-px bg-gray-500" />
-                            <p className="text-sm text-gray-500">{movie.releaseDate}</p>
+                            <p className="text-sm text-gray-500">{new Date(movie.releaseDate).toDateString()}</p>
                         </div>
                         <h6 className="font-poppins text-md pt-2 text-white">Genres: {movie.genres}</h6>
                         <p className="font-poppins text-sm pt-2 text-white-grey">{movie.description}</p>

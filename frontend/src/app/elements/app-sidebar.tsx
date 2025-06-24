@@ -1,13 +1,15 @@
-import { ClapperboardIcon, Home, Newspaper, Popcorn, Settings } from "lucide-react"
-import { Link, useLocation } from "react-router-dom"
-import { Separator } from "@radix-ui/react-separator"
-import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar"
+import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
+import { Separator } from "@radix-ui/react-separator";
+import { ClapperboardIcon, Home, Newspaper, Popcorn, Settings } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 
 // Menu items.
+const user = JSON.parse(localStorage.getItem("user") || "{}");
+const id = user?.id;
 const items = [
   {
     title: "Home",
-    url: "/",
+    url: `/${id}`,
     icon: Home,
   },
   {
@@ -48,7 +50,7 @@ const subItems = [
   },
   {
     title: "FAQ",
-    url: "#",
+    url: "/faq",
   },
   {
     title: "Contact Us",

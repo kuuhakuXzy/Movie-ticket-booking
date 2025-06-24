@@ -35,6 +35,21 @@ export const createBooking = async (req, res) => {
     seats.forEach(seat => {
       totalAmount += seat.price;
     });
+
+    foodDrinks.forEach(order => {
+      if (order.item && order.quantity) {
+        const foodDrinkItem = FoodDrink.findById(order.item);
+        if (foodDrinkItem) {
+          totalAmount += foodDrinkItem.price * order.quantity;
+        } else {
+          return res.status(400).json({ message: `Food/Drink item with ID ${order.item} not found` });
+        }
+      } else {
+        return res.status(400).json({ message: "Invalid food/drink order format" });
+      }
+    });
+
+    console.log("Total Amount:", totalAmount);
     
 
     // Add food and drinks prices
