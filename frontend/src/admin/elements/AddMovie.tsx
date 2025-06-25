@@ -9,6 +9,7 @@ import { createMovie } from '../api/api';
 
 type Movie = {
     _id: string;
+    id: number;
     title: string;
     image: string;
     wallpaper: string;
@@ -25,6 +26,7 @@ export function AddMovie() {
     const [movies, setMovies] = useState<Movie[]>([]);
     const [newMovie, setNewMovie] = useState({
         _id: '',
+        id: 0,
         title: '',
         description: '',
         releaseDate: '',
@@ -46,8 +48,8 @@ export function AddMovie() {
         [name]:
             type === 'checkbox'
             ? checked
-            : name === '_id'
-            ? value
+            : name === 'id'
+            ? Number(value)
             : value
     }));
     };
@@ -64,6 +66,7 @@ export function AddMovie() {
         setMovies((prev) => [...prev, movie]);
         setNewMovie({
             _id: '',
+            id: 0,
             title: '',
             description: '',
             releaseDate: '',
@@ -99,6 +102,7 @@ export function AddMovie() {
             </CardHeader>
             
             <CardContent className="space-y-4">
+                <input className="w-full border p-2 text-sm" name="id" value={newMovie.id} onChange={handleInputChange} placeholder="ID" />
                 <input className="w-full border p-2 text-sm" name="title" value={newMovie.title} onChange={handleInputChange} placeholder="Title" />
                 <textarea className="w-full border p-2 text-sm" name="description" value={newMovie.description} onChange={handleInputChange} placeholder="Description" />
                 <input className="w-full border p-2 text-sm" name="releaseDate" type="date" value={newMovie.releaseDate} onChange={handleInputChange} />
