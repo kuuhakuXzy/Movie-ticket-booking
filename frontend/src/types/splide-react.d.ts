@@ -2,7 +2,7 @@ declare module '@splidejs/react-splide' {
     import { ComponentType } from 'react';
 
     export interface SplideProps {
-        options?: Record<string, number>;
+        options?: Record<string, string | number | boolean>;
         hasTrack?: boolean;
         tag?: string;
         children?: React.ReactNode;
