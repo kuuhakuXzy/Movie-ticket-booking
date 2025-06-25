@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:5000';
+const baseUrl = import.meta.env.VITE_API_URL;
 
 export type BookingPayload = {
     showtimeId: string;
