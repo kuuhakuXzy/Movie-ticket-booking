@@ -3,10 +3,14 @@ const BASE_URL = import.meta.env.VITE_API_URL;
 
 export type BookingPayload = {
     showtimeId: string;
-    seatIds: string[];
+    seats: {
+        seatNumber: string;
+        price: number;
+    }[];
     foodDrinks: {
         item: string;
         quantity: number;
+        price: number;
     }[];
     customerInfo: {
         name: string;
@@ -14,13 +18,13 @@ export type BookingPayload = {
         phone: string;
     };
     paymentMethod: "cash" | "credit_card" | "momo" | "zalo";
-    };
+};
 
 export type BookingResponse = {
     _id: string;
     user: string;
     showtime: string;
-    seats: { seatNumber: string; price: number }[];
+    seats: { seatNumber: string; price: number}[];
     foodDrinks: { item: string; quantity: number; price: number }[];
     customerInfo: {
         name: string;
@@ -70,6 +74,7 @@ export const fetchFoodDrink = async () => {
 }
 
 type LoginPayload = {
+    _id?: string;
     email: string;
     password: string;
 };
@@ -95,23 +100,28 @@ export const userLogin = async (payload: LoginPayload) => {
 export const createBooking = async (
     bookingData: BookingPayload
 ): Promise<BookingResponse> => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("userToken");
     if (!token) throw new Error("Unauthorized: No token found");
+
+    console.log("Sending booking to:", `${BASE_URL}/booking/createBooking`);
 
     const res = await fetch(`${BASE_URL}/booking/createBooking`, {
         method: "POST",
         headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(bookingData),
     });
 
-    const data = await res.json();
+    console.log("Booking data being sent:", bookingData);
 
     if (!res.ok) {
-        throw new Error(data.message || "Failed to create booking");
+        const err = await res.json();
+        throw new Error(err.message || 'Failed to create booking');
     }
+
+    const data = await res.json();
 
     return data.booking;
 };
@@ -124,4 +134,54 @@ export const fetchShowtimesbyId = async (movieId: string) => {
     }
     const data = await res.json();
     return data.showtimes;
+}
+
+export const fetchAllFoodDrinks = async () => {
+    const res = await fetch(`${BASE_URL}/food-drink/all`);
+
+    if (!res.ok) {
+        throw new Error('Failed to fetch food and drinks');
+    }
+    const data = await res.json();
+    return data.foodDrink;
+}
+
+export const fetchUserBooking = async (userId: string) => {
+    const token = localStorage.getItem("userToken");
+    if (!token) throw new Error("Unauthorized: No token found");
+
+    const res = await fetch(`${BASE_URL}/booking/user/${userId}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+    });
+
+    if (!res.ok) {
+        throw new Error("Failed to fetch user bookings");
+    }
+
+    const data = await res.json();
+    return data.bookings;
+};
+
+export const userSignup = async (email: string, password: string) => {
+    const res = await fetch(`${BASE_URL}/user/signup`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            email,
+            password,
+        }),
+    });
+
+    if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.message || 'Failed to signup user');
+    }
+    const data = await res.json();
+    return data;
 }

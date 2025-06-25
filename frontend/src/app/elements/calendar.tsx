@@ -60,105 +60,118 @@ export function Calendar() {
     }, [movieId]);
 
     return (
-        <div className="bg-jet-black min-h-screen text-white flex">
+    <div className="bg-jet-black min-h-screen text-white">
         <SidebarProvider defaultOpen={false}>
-            <AppSidebar />
-            <div className="flex-1 flex flex-col">
+        <AppSidebar />
+
+        <div className="flex flex-col w-full">
             <Header />
 
+            {/* Wallpaper Banner */}
             {movie && (
-                <div className="relative w-full">
+            <div className="relative w-full">
                 <img
-                    src={movie.wallpaper}
-                    alt="Wallpaper"
-                    className="w-full h-[400px] object-cover"
+                src={convertGoogleDriveUrl(movie.wallpaper)}
+                alt="Wallpaper"
+                className="w-full h-[400px] object-cover"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
+            </div>
+            )}
+
+            {/* Movie Info Section */}
+            {movie && (
+            <div className="flex gap-8 px-10 py-8">
+                {/* Poster */}
                 <img
-                    src={convertGoogleDriveUrl(movie.image)}
-                    alt="Poster"
-                    className="absolute bottom-0 left-0 w-[200px] h-[300px] scale-75 object-cover rounded shadow-lg"
+                src={convertGoogleDriveUrl(movie.image)}
+                alt="Poster"
+                className="w-[200px] h-[300px] object-cover rounded shadow-lg"
                 />
 
-                <div className="absolute bottom-0 left-40 p-10 w-full h-full flex flex-col justify-end items-start">
-                    <h1 className="text-4xl font-bold">{movie.title}</h1>
-                    <p className="font-poppins text-lg text-gray-300 mt-2">
-                    {new Date(movie.releaseDate).toDateString()} • {movie.rating} •{" "}
-                    {movie.duration}
-                    </p>
-                    <p className="font-poppins text-md text-white mt-2">
+                {/* Movie Details */}
+                <div className="flex flex-col justify-center">
+                <h1 className="text-4xl font-bold">{movie.title}</h1>
+                <p className="font-poppins text-lg text-gray-300 mt-2">
+                    {new Date(movie.releaseDate).toDateString()} • {movie.rating} • {movie.duration}
+                </p>
+                <p className="font-poppins text-md text-white mt-4">
                     <strong>Genres:</strong> {movie.genres.join(", ")}
-                    </p>
-                    <p className="font-poppins text-md text-white mt-2">
+                </p>
+                <p className="font-poppins text-md text-white mt-2">
                     <strong>Description:</strong> {movie.description}
-                    </p>
+                </p>
                 </div>
+            </div>
+            )}
+
+            {/* Showtimes Section */}
+            <div className="flex flex-col items-center p-4">
+            <h1 className="text-2xl font-bold mb-4">Available Showtimes</h1>
+            {showtimes.length === 0 ? (
+                <p className="text-gray-400">No showtimes available.</p>
+            ) : (
+                <div className="flex gap-3 flex-wrap justify-center">
+                {showtimes.map((showtime) => (
+                    <button
+                    key={showtime._id}
+                    onClick={() => {
+                        setSelectedShowtime(showtime);
+                        setIsDrawerOpen(true);
+                    }}
+                    className="bg-white rounded-2xl shadow-lg p-4 w-[210px] hover:scale-105 transition-transform duration-200"
+                    >
+                    <h2 className="text-lg font-bold text-gray-800 mb-2 text-center">
+                        {new Date(showtime.date).toLocaleDateString("en-US", {
+                        weekday: "short",
+                        month: "short",
+                        day: "numeric",
+                        })}
+                    </h2>
+
+                    <div className="flex items-center text-gray-600 text-sm mb-1">
+                        <Clock className="w-4 h-4 mr-2" />
+                        {showtime.startTime} – {showtime.endTime}
+                    </div>
+
+                    <div className="flex items-center text-gray-600 text-sm mb-1">
+                        <MapPin className="w-4 h-4 mr-2" />
+                        {showtime.cinema} – {showtime.hall}
+                    </div>
+
+                    <div className="flex items-center text-gray-700 text-sm font-medium">
+                        <DollarSign className="w-4 h-4 mr-2 text-green-500" />
+                        {showtime.price.toLocaleString()} VND
+                    </div>
+                    </button>
+                ))}
                 </div>
             )}
 
-            <div className="flex flex-col items-center p-4">
-                <h1 className="text-2xl font-bold mb-4">Available Showtimes</h1>
-                {showtimes.length === 0 ? (
-                <p className="text-gray-400">No showtimes available.</p>
-                ) : (
-                <div className="flex gap-3">
-                    {showtimes.map((showtime) => (
-                    <button
-                        onClick={() => {
-                            setSelectedShowtime(showtime);
-                            setIsDrawerOpen(true);
-                        }}
-                        key={showtime._id}
-                        className="bg-white rounded-2xl shadow-lg p-4 w-[210px] hover:scale-105 transition-transform duration-200"
-                        >
-                            <h2 className="text-lg font-bold text-gray-800 mb-2 text-center">
-                                {new Date(showtime.date).toLocaleDateString("en-US", {
-                                weekday: "short",
-                                month: "short",
-                                day: "numeric",
-                                })}
-                            </h2>
-
-                            <div className="flex items-center text-gray-600 text-sm mb-1">
-                                <Clock className="w-4 h-4 mr-2" />
-                                {showtime.startTime} – {showtime.endTime}
-                            </div>
-
-                            <div className="flex items-center text-gray-600 text-sm mb-1">
-                                <MapPin className="w-4 h-4 mr-2" />
-                                {showtime.cinema} – {showtime.hall}
-                            </div>
-
-                            <div className="flex items-center text-gray-700 text-sm font-medium">
-                                <DollarSign className="w-4 h-4 mr-2 text-green-500" />
-                                {showtime.price.toLocaleString()} VND
-                            </div>
-                        </button>
-                    ))}
-                </div>
-                )}
-            </div>
-            <Footer />
+            {/* Seat Drawer */}
             <SeatDrawer
                 isOpen={isDrawerOpen}
                 onClose={() => setIsDrawerOpen(false)}
                 showtime={
-                    selectedShowtime
+                selectedShowtime
                     ? {
                         ...selectedShowtime,
                         movie: {
-                            ...selectedShowtime.movie,
-                            image: convertGoogleDriveUrl(movie?.image || ""),
-                            title: movie?.title || "",
-                            duration: movie?.duration || "",
-                            releaseDate: movie?.releaseDate || "",
+                        ...selectedShowtime.movie,
+                        image: convertGoogleDriveUrl(movie?.image || ""),
+                        title: movie?.title || "",
+                        duration: movie?.duration || "",
+                        releaseDate: movie?.releaseDate || "",
                         },
-                        }
+                    }
                     : null
                 }
-                />
+            />
             </div>
-            
-        </SidebarProvider>
+
+            <Footer />
         </div>
-    );
+        </SidebarProvider>
+    </div>
+);
 }

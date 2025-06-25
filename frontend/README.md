@@ -52,3 +52,8 @@ export default tseslint.config({
   },
 })
 ```
+
+Frontend:
+npm install @radix-ui/react-accordion
+npm i
+npm i vite 

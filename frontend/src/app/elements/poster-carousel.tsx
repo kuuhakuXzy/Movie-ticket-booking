@@ -1,5 +1,7 @@
-import poster from '@/assets/poster.jpg';
+import poster from '@/assets/poster1.png';
 import poster2 from '@/assets/poster2.jpg';
+import poster3 from '@/assets/poster3.jpg';
+import poster4 from '@/assets/poster4.jpg';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/splide/dist/css/splide.min.css';
 
@@ -15,7 +17,7 @@ export default function PosterCarousel () {
                         pagination: true,
                         arrows: true,
                         autoplay: true,
-                        interval: 5000,
+                        interval: 2500,
                     }}
                 >
                     <SplideSlide>
@@ -29,6 +31,20 @@ export default function PosterCarousel () {
                         <img
                             src={poster2}
                             alt="Poster2"
+                            className="w-full h-[450px] object-cover"
+                        />
+                    </SplideSlide>
+                    <SplideSlide>
+                        <img
+                            src={poster3}
+                            alt="Poster3"
+                            className="w-full h-[450px] object-cover"
+                        />
+                    </SplideSlide>
+                    <SplideSlide>
+                        <img
+                            src={poster4}
+                            alt="Poster4"
                             className="w-full h-[450px] object-cover"
                         />
                     </SplideSlide>

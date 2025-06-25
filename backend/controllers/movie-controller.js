@@ -24,7 +24,7 @@ export const createMovie = async (req, res) => {
   });
     
 
-    const { id, title, description, releaseDate, image, wallpaper, rating, duration, genres, nowShowing } = req.body;
+    const { title, description, releaseDate, image, wallpaper, rating, duration, genres, nowShowing } = req.body;
 
     if (!image || !wallpaper) {
       return res.status(400).json({ message: "Image and wallpaper links are required" });
@@ -45,7 +45,6 @@ export const createMovie = async (req, res) => {
       }
 
       movie = new Movie({
-        id,
         title,
         description,
         releaseDate: formattedDate,

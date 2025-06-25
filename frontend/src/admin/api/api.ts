@@ -2,7 +2,7 @@ const BASE_URL = import.meta.env.VITE_API_URL;
 
 
 type MoviePayload = {
-  id: number;
+  _id: string;
   title: string;
   description: string;
   releaseDate: string;
@@ -16,7 +16,6 @@ type MoviePayload = {
 
 type MovieResponse = {
   _id: string;
-  id: number;
   title: string;
   image: string;
   wallpaper: string;

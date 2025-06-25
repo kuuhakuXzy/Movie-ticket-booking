@@ -4,6 +4,7 @@ import { convertGoogleDriveUrl } from "@/lib/utils";
 import { Film } from "lucide-react";
 import { useEffect, useState } from "react";
 import { fetchComingSoonMovies, fetchNowShowingMovies } from "../api/api";
+import { Link } from "react-router-dom";
 
 type Movie = {
     _id: string;
@@ -22,6 +23,8 @@ export default function MovieListPage() {
   const [nowShowingMovies, setNowShowingMovies] = useState<Movie[]>([]);
   const [comingSoonMovies, setComingSoonMovies] = useState<Movie[]>([]);
 
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
+  const id = user?.id ?? "guest";
 
   useEffect(() => {
     fetchNowShowingMovies()
@@ -38,10 +41,10 @@ export default function MovieListPage() {
       <SidebarProvider defaultOpen={true}>
         <AppSidebar />
         <div className="flex-1 flex flex-col p-6">
-          <a href="/" className="flex items-center gap-2 mb-8">
+          <Link to={`/${id}`} className="flex items-center gap-2 mb-8">
             <Film className="h-10 w-10 text-red-600" />
             <div className="text-3xl font-alfa text-red-500">CineBook</div>
-          </a>
+          </Link>
 
           <h1 className="text-3xl font-bold mb-6">Now Showing</h1>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">

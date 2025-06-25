@@ -14,7 +14,7 @@ export function LoginAdminForm() {
         const response = await adminLogin(email, password);
 
         // Save token
-        localStorage.setItem('token', response.token);
+        localStorage.setItem('adminToken', response.token);
         localStorage.setItem('email', response.email)
 
         console.log('Response: ', response)

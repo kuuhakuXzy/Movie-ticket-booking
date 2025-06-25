@@ -4,16 +4,15 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 export const addNewUser = async (req,res,next)=>{
-  const {name, email, password } = req.body;
-    if(!name && name.trim() === "" 
-    && !email && email.trim() === "" 
+  const {email, password } = req.body;
+    if(!email && email.trim() === ""
     && !password && password.trim() === ""){
       return res.status(422).json({message: "Invalid Inputs"})
     }
-   const hashPwd = bcrypt.hashSync(password) 
+    const hashPwd = bcrypt.hashSync(password)
     let user;
     try {
-      user = new User({name, email , password:hashPwd})
+      user = new User({email, password:hashPwd})
       user = await user.save()
     } catch (error) {
       return console.log(error)
@@ -26,7 +25,7 @@ export const addNewUser = async (req,res,next)=>{
 
 export const updateUser = async(req, res, next)=>{
   const userId = req.user.id; // Get user ID from authenticated token
-  const {name, email, password } = req.body
+  const {email, password } = req.body
 
   if(!name && name.trim() === "" 
   && !email && email.trim() === "" 
@@ -66,18 +65,18 @@ export const login = async(req, res, next)=>{
   if(email && email.trim()==="" && password && password.trim() === ""){
     return res.status(422).json({message:"Invalid Inputs"})
   }
-  let exitUser;
+  let user;
   try {
-    exitUser = await User.findOne({email})
+    user = await User.findOne({email})
   } catch (error) {
     return console.log(error)
   }
 
-  if(!exitUser){
+  if(!user){
     return res.status(404).json({message:"Unable to find user with this email"})
   }
 
-  let isCrtPwd = bcrypt.compareSync(password, exitUser.password)
+  let isCrtPwd = bcrypt.compareSync(password, user.password)
 
   if(!isCrtPwd){
     return res.status(404).json({message:"Incorrect password"})
@@ -85,7 +84,7 @@ export const login = async(req, res, next)=>{
   
   // Generate JWT token
   const token = jwt.sign(
-    { id: exitUser._id, email: exitUser.email },
+    { id: user._id, email: user.email },
     process.env.JWT_SECRET,
     { expiresIn: '24h' }
   );
@@ -94,9 +93,9 @@ export const login = async(req, res, next)=>{
     message: "Login successfully!",
     token,
     user: {
-      id: exitUser._id,
-      name: exitUser.name,
-      email: exitUser.email
+      id: user._id,
+      name: user.name,
+      email: user.email
     }
   })
 }

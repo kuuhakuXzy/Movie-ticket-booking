@@ -3,15 +3,16 @@ import {
   createFoodDrink,
   getAllFoodDrinks,
   getFoodDrinkById,
+  getFoodDrinksByCategory,
 } from '../controllers/fooddrink-controller.js';
-import { validateFoodDrink } from '../middleware/validators.js';
 import { verifyAdmin } from '../middleware/auth.js';
+import { validateFoodDrink } from '../middleware/validators.js';
 
 const router = express.Router();
 
 // Public routes
 router.get('/all', getAllFoodDrinks);
-// router.get('/category/:category', getFoodDrinksByCategory);
+router.get('/category/:category', getFoodDrinksByCategory);
 router.get('/:id', getFoodDrinkById);
 
 // Admin routes

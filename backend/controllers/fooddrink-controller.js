@@ -1,17 +1,20 @@
 import dotenv from 'dotenv';
 import FoodDrink from "../models/FoodDrink.js";
 import jwt from 'jsonwebtoken';
+import mongoose from "mongoose";
+import Admin from '../models/Admin.js';
 dotenv.config();
 
 export const createFoodDrink = async (req, res) => {
   try {
     const extractedToken = req.headers.authorization.split(' ')[1];
-    if(!extractedToken && extractedToken.trim() === ""){
-      return res.status(404).json({message:"Token Not Found"})
+    
+    if(!extractedToken && extractedToken.trim() === "") {
+      return res.status(404).json({ message:"Token Not Found" })
     }
 
     let adminId;
-    jwt.verify(extractedToken, process.env.SECRET_KEY, (err, decrypted) => {
+    jwt.verify(extractedToken, process.env.JWT_SECRET, (err, decrypted) => {
       if(err){
         return res.status(400).json({message: `${err.message}`})
       }else{
@@ -22,6 +25,13 @@ export const createFoodDrink = async (req, res) => {
 
     const { name, description, price, category, image } = req.body;
 
+    if (!image) {
+      return res.status(400).json({ message: "Image and wallpaper links are required" });
+    }
+
+    const session = await mongoose.startSession();
+    const adminUser = await Admin.findById(adminId);
+
     const foodDrink = new foodDrink({
       name,
       description,
@@ -30,10 +40,6 @@ export const createFoodDrink = async (req, res) => {
       image,
       admin: adminId
     });
-
-    await foodDrink.save();
-    const session = await mongoose.startSession();
-    const adminUser = await Admin.findById(adminId);
 
     session.startTransaction();
     await foodDrink.save({session});
@@ -57,8 +63,8 @@ export const getAllFoodDrinks = async (req, res) => {
       query.category = category;
     }
 
-    const foodDrinks = await FoodDrink.find(query);
-    res.status(200).json({ foodDrinks });
+    const foodDrink = await FoodDrink.find(query);
+    res.status(200).json({ foodDrink });
   } catch (error) {
     res.status(500).json({ message: "Error fetching food/drink items", error: error.message });
   }

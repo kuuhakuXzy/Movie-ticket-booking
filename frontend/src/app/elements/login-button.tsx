@@ -27,7 +27,7 @@ export const LoginButton = () => {
     }, []);
 
     const handleLogout = () => {
-        localStorage.removeItem("token");
+        localStorage.removeItem("userToken");
         localStorage.removeItem("user");
         navigate("/user/login");
     };
