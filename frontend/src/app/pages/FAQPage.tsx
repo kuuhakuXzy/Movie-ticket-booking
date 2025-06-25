@@ -1,3 +1,7 @@
+import AppSidebar from "@/app/elements/app-sidebar";
+import { Footer } from "@/app/elements/footer";
+import { Header } from "@/app/elements/header";
+import PosterCarousel from "@/app/elements/poster-carousel";
 import {
     Accordion,
     AccordionContent,
@@ -5,10 +9,6 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion";
 import { SidebarProvider } from "@/components/ui/sidebar";
-import AppSidebar from "../elements/app-sidebar";
-import { Footer } from "../elements/footer";
-import { Header } from "../elements/header";
-import PosterCarousel from "../elements/poster-carousel";
 
 export default function FAQPage() {
     const faqs = [
@@ -18,18 +18,13 @@ export default function FAQPage() {
             "Simply choose your movie, select seats, add food & drinks, and proceed to checkout.",
         },
         {
-        question: "Can I cancel my booking?",
-        answer:
-            "Yes, bookings can be canceled up to 1 hour before the showtime via your profile.",
-        },
-        {
         question: "Which payment methods are accepted?",
         answer: "We accept credit/debit cards, Momo, ZaloPay, and cash.",
         },
         {
         question: "How do I get my booking confirmation?",
         answer:
-            "You will receive a confirmation email and can also view it in your booking history.",
+            "You can view it in Booking Management inside the tab panel.",
         },
     ];
 
@@ -54,7 +49,7 @@ export default function FAQPage() {
                         <AccordionTrigger className="mx-5 my-3 p-2 text-left text-lg font-medium font-poppins text-black bg-gray-200 hover:bg-gray-300 focus:bg-gray-300">
                         {faq.question}
                         </AccordionTrigger>
-                        <AccordionContent className="text-lg p-2 font-poppins text-gray-300">
+                        <AccordionContent className="text-lg p-2 mx-3 font-poppins text-gray-300">
                         {faq.answer}
                         </AccordionContent>
                     </AccordionItem>

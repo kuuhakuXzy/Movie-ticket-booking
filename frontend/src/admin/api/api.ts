@@ -1,7 +1,7 @@
 const BASE_URL = 'http://localhost:5000';
 
 type MoviePayload = {
-  id: number;
+  _id: string;
   title: string;
   description: string;
   releaseDate: string;
@@ -15,7 +15,6 @@ type MoviePayload = {
 
 type MovieResponse = {
   _id: string;
-  id: number;
   title: string;
   image: string;
   wallpaper: string;

@@ -2,30 +2,29 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { TabsContent } from '@/components/ui/tabs';
+import { convertGoogleDriveUrl } from '@/lib/utils';
 import { Clapperboard } from 'lucide-react';
 import { useState } from 'react';
 import { createMovie } from '../api/api';
-import { convertGoogleDriveUrl } from '@/lib/utils';
+
+type Movie = {
+    _id: string;
+    title: string;
+    image: string;
+    wallpaper: string;
+    rating: string;
+    duration: string;
+    releaseDate: string;
+    genres: string[];
+    description: string;
+    nowShowing: boolean;
+};
 
 export function AddMovie() {
-    type Movie = {
-        _id: string;
-        id: number;
-        title: string;
-        image: string;
-        wallpaper: string;
-        rating: string;
-        duration: string;
-        releaseDate: string;
-        genres: string[];
-        description: string;
-        nowShowing: boolean;
-    };
-
     const [showAddForm, setShowAddForm] = useState(false);
     const [movies, setMovies] = useState<Movie[]>([]);
     const [newMovie, setNewMovie] = useState({
-        id: 0,
+        _id: '',
         title: '',
         description: '',
         releaseDate: '',
@@ -47,8 +46,8 @@ export function AddMovie() {
         [name]:
             type === 'checkbox'
             ? checked
-            : name === 'id'
-            ? Number(value)
+            : name === '_id'
+            ? value
             : value
     }));
     };
@@ -64,17 +63,17 @@ export function AddMovie() {
         const movie = await createMovie(payload);
         setMovies((prev) => [...prev, movie]);
         setNewMovie({
-        id: 0,
-        title: '',
-        description: '',
-        releaseDate: '',
-        image: '',
-        wallpaper: '',
-        rating: '',
-        duration: '',
-        genres: '',
-        nowShowing: false
-        });
+            _id: '',
+            title: '',
+            description: '',
+            releaseDate: '',
+            image: '',
+            wallpaper: '',
+            rating: '',
+            duration: '',
+            genres: '',
+            nowShowing: false
+            });
         setShowAddForm(false);
     } catch (err: any) {
         alert(err.message);
@@ -100,7 +99,6 @@ export function AddMovie() {
             </CardHeader>
             
             <CardContent className="space-y-4">
-                <input className="w-full border p-2 text-sm" name="id" value={newMovie.id} onChange={handleInputChange} placeholder="ID" />
                 <input className="w-full border p-2 text-sm" name="title" value={newMovie.title} onChange={handleInputChange} placeholder="Title" />
                 <textarea className="w-full border p-2 text-sm" name="description" value={newMovie.description} onChange={handleInputChange} placeholder="Description" />
                 <input className="w-full border p-2 text-sm" name="releaseDate" type="date" value={newMovie.releaseDate} onChange={handleInputChange} />
@@ -131,7 +129,7 @@ export function AddMovie() {
                 </CardHeader>
                 <CardContent className="space-y-2">
                     <img src={convertGoogleDriveUrl(movie.image)} alt="Movie Poster" className="w-full h-48 object-cover rounded" />
-                    <p className="text-xs text-muted-foreground">ID: {movie.id}</p>
+                    <p className="text-xs text-muted-foreground">ID: {movie._id}</p>
                     <p className="text-xs text-muted-foreground">{new Date(movie.releaseDate).toLocaleDateString()}</p>
                     <p className="text-xs text-muted-foreground">{movie.description}</p>
                     <p className="text-xs text-muted-foreground">Genres: {movie.genres.join(', ')}</p>

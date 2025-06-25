@@ -19,7 +19,6 @@ export type BookingPayload = {
     paymentMethod: "cash" | "credit_card" | "momo" | "zalo";
 };
 
-
 export type BookingResponse = {
     _id: string;
     user: string;
@@ -165,3 +164,23 @@ export const fetchUserBooking = async (userId: string) => {
     const data = await res.json();
     return data.bookings;
 };
+
+export const userSignup = async (email: string, password: string) => {
+    const res = await fetch(`${BASE_URL}/user/signup`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            email,
+            password,
+        }),
+    });
+
+    if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.message || 'Failed to signup user');
+    }
+    const data = await res.json();
+    return data;
+}

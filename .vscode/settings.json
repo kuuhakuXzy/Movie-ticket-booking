@@ -12,7 +12,8 @@
         "Shadcn",
         "showtimes",
         "Showtimesby",
-        "splidejs"
+        "splidejs",
+        "watchlist"
     ],
     "postman.settings.dotenv-detection-notification-visibility": false
 }

@@ -4,16 +4,15 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 export const addNewUser = async (req,res,next)=>{
-  const {name, email, password } = req.body;
-    if(!name && name.trim() === "" 
-    && !email && email.trim() === "" 
+  const {email, password } = req.body;
+    if(!email && email.trim() === ""
     && !password && password.trim() === ""){
       return res.status(422).json({message: "Invalid Inputs"})
     }
-   const hashPwd = bcrypt.hashSync(password) 
+    const hashPwd = bcrypt.hashSync(password)
     let user;
     try {
-      user = new User({name, email , password:hashPwd})
+      user = new User({email, password:hashPwd})
       user = await user.save()
     } catch (error) {
       return console.log(error)
@@ -26,7 +25,7 @@ export const addNewUser = async (req,res,next)=>{
 
 export const updateUser = async(req, res, next)=>{
   const userId = req.user.id; // Get user ID from authenticated token
-  const {name, email, password } = req.body
+  const {email, password } = req.body
 
   if(!name && name.trim() === "" 
   && !email && email.trim() === "" 
