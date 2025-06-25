@@ -7,7 +7,6 @@ import { Clapperboard } from 'lucide-react';
 import { useState } from 'react';
 import { createMovie } from '../api/api';
 
-// Change 1: Update the Movie type. `genres` is now a string.
 type Movie = {
     _id: string;
     title: string;
@@ -16,7 +15,7 @@ type Movie = {
     rating: string;
     duration: string;
     releaseDate: string;
-    genres: string; // Changed from string[]
+    genres: string[];
     description: string;
     nowShowing: boolean;
 };
@@ -54,9 +53,6 @@ export function AddMovie() {
     };
 
     const handleAddMovie = async () => {
-        // Change 2: Remove the transformation.
-        // The payload will now send `genres` as a single string,
-        // which is what the API expects.
         const payload = { ...newMovie };
 
         try {
