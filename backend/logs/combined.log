@@ -389,3 +389,6 @@
 {"level":"warn","message":"No authorization header provided","service":"movie-booking-api","timestamp":"2025-06-24 22:02:05"}
 {"level":"warn","message":"No authorization header provided","service":"movie-booking-api","timestamp":"2025-06-24 22:02:05"}
 {"level":"warn","message":"No authorization header provided","service":"movie-booking-api","timestamp":"2025-06-24 22:02:09"}
+{"level":"info","message":"Server started on port 5000","service":"movie-booking-api","timestamp":"2025-06-25 13:38:40"}
+{"level":"info","message":"Database connected successfully","service":"movie-booking-api","timestamp":"2025-06-25 13:38:40"}
+{"level":"info","message":"MongoDB connected successfully","service":"movie-booking-api","timestamp":"2025-06-25 13:38:42"}
