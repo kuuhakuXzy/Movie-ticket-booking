@@ -17,7 +17,7 @@ dbconnect();
 
 // Middleware
 app.use(cors({
-  origin: ['http://localhost:5173', 'https://movie-ticket-booking-1-w6kq.onrender.com'],
+  origin: ['http://localhost:5173', 'https://movie-ticket-booking-w348.vercel.app/'],
   credentials: true
 }));
 app.use(express.json());
