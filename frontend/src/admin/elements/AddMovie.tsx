@@ -56,7 +56,9 @@ export function AddMovie() {
     const payload = {
         ...newMovie,
         image: newMovie.image,
-        wallpaper: newMovie.wallpaper
+        wallpaper: newMovie.wallpaper,
+        genres: newMovie.genres.split(',').map((g) => g.trim())
+
     };
 
     try {
