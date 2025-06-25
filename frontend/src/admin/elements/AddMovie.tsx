@@ -7,6 +7,7 @@ import { Clapperboard } from 'lucide-react';
 import { useState } from 'react';
 import { createMovie } from '../api/api';
 
+// Change 1: Update the Movie type. `genres` is now a string.
 type Movie = {
     _id: string;
     title: string;
@@ -15,7 +16,7 @@ type Movie = {
     rating: string;
     duration: string;
     releaseDate: string;
-    genres: string[];
+    genres: string; // Changed from string[]
     description: string;
     nowShowing: boolean;
 };
@@ -53,37 +54,35 @@ export function AddMovie() {
     };
 
     const handleAddMovie = async () => {
-    const payload = {
-        ...newMovie,
-        image: newMovie.image,
-        wallpaper: newMovie.wallpaper,
-        genres: newMovie.genres.split(',').map((g) => g.trim())
+        // Change 2: Remove the transformation.
+        // The payload will now send `genres` as a single string,
+        // which is what the API expects.
+        const payload = { ...newMovie };
 
-    };
-
-    try {
-        const movie = await createMovie(payload);
-        setMovies((prev) => [...prev, movie]);
-        setNewMovie({
-            _id: '',
-            title: '',
-            description: '',
-            releaseDate: '',
-            image: '',
-            wallpaper: '',
-            rating: '',
-            duration: '',
-            genres: '',
-            nowShowing: false
-            });
-        setShowAddForm(false);
-    } catch (err: any) {
-        alert(err.message);
-    }
+        try {
+            const movie = await createMovie(payload);
+            setMovies((prev) => [...prev, movie]);
+            setNewMovie({
+                _id: '',
+                title: '',
+                description: '',
+                releaseDate: '',
+                image: '',
+                wallpaper: '',
+                rating: '',
+                duration: '',
+                genres: '',
+                nowShowing: false
+                });
+            setShowAddForm(false);
+        } catch (err: any) {
+            alert(err.message);
+        }
     };
 
     return (
         <TabsContent value="overview" className="space-y-4">
+        {/* ... Card for showing the form is unchanged ... */}
         <Card
             onClick={() => setShowAddForm(!showAddForm)}
             className="cursor-pointer hover:shadow-md transition-shadow duration-300"
@@ -134,7 +133,8 @@ export function AddMovie() {
                     <p className="text-xs text-muted-foreground">ID: {movie._id}</p>
                     <p className="text-xs text-muted-foreground">{new Date(movie.releaseDate).toLocaleDateString()}</p>
                     <p className="text-xs text-muted-foreground">{movie.description}</p>
-                    <p className="text-xs text-muted-foreground">Genres: {movie.genres.join(', ')}</p>
+                    {/* Change 3: Display the genres string directly */}
+                    <p className="text-xs text-muted-foreground">Genres: {movie.genres}</p>
                     <p className="text-xs text-muted-foreground">Rating: {movie.rating}</p>
                     <p className="text-xs text-muted-foreground">Duration: {movie.duration}</p>
                 </CardContent>
