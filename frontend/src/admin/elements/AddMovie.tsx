@@ -55,6 +55,7 @@ export function AddMovie() {
     const handleAddMovie = async () => {
     const payload = {
         ...newMovie,
+        genres: newMovie.genres.split(',').map(g => g.trim()),
         image: newMovie.image,
         wallpaper: newMovie.wallpaper
     };
