@@ -10,7 +10,7 @@ export default function SignupPage() {
         <div className="bg-white grid min-h-svh lg:grid-cols-2">
         <div className="relative hidden bg-muted lg:block">
             <img
-            src="src/assets/login-background.jpg"
+            src="/assets/login-background-D0B_xQP_.jpg"
             alt="Image"
             className="h-full"
             />
