@@ -53,24 +53,24 @@ export const createBooking = async (req, res) => {
     
 
     // Add food and drinks prices
-    // let foodDrinkDetails = [];
-    // if (foodDrinks && foodDrinks.length > 0) {
-    //   const foodDrinkItems = await FoodDrink.find({
-    //     _id: { $in: foodDrinks.map(item => item.item) }
-    //   });
+    let foodDrinkDetails = [];
+    if (foodDrinks && foodDrinks.length > 0) {
+      const foodDrinkItems = await FoodDrink.find({
+        _id: { $in: foodDrinks.map(item => item.item) }
+      });
 
-    //   foodDrinkDetails = foodDrinks.map(order => {
-    //     const item = foodDrinkItems.find(fd => fd._id.toString() === order.item);
-    //     if (item) {
-    //       totalAmount += item.price * order.quantity;
-    //       return {
-    //         item: item._id,
-    //         quantity: order.quantity,
-    //         price: item.price
-    //       };
-    //     }
-    //   }).filter(Boolean);
-    // }
+      foodDrinkDetails = foodDrinks.map(order => {
+        const item = foodDrinkItems.find(fd => fd._id.toString() === order.item);
+        if (item) {
+          totalAmount += item.price * order.quantity;
+          return {
+            item: item._id,
+            quantity: order.quantity,
+            price: item.price
+          };
+        }
+      }).filter(Boolean);
+    }
 
     // Generate unique booking reference
     const bookingReference = `BK${uuidv4().slice(0, 8).toUpperCase()}`;
